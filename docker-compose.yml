@@ -1,0 +1,62 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    environment:
+      - TZ=America/Toronto
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+
+  nginx:
+    image: nginx:1.23.3alpine
+    container_name: laravel_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - mynetwork
+
+  node:
+    image: node:20-alpine
+    container_name: laravel_node
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - "5173:5173"
+    networks:
+      - mynetwork
+
+  db:
+    image: mysql:8.0
+    container_name: goal_db
+    environment:
+      MYSQL_DATABASE: goal
+      MYSQL_USER: goallaravel2025
+      MYSQL_PASSWORD: laravelsocial2025
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  dbdata:
