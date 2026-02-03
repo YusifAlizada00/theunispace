@@ -89,8 +89,8 @@
                 <div class="md:col-span-8 lg:col-span-9">
                     
                     {{-- NEW BEAUTIFUL TABS --}}
-                    <div class="sticky top-20 md:top-0 z-30 bg-gray-50/95 backdrop-blur-md py-4 mb-6 -mx-4 px-4 sm:mx-0 sm:px-0 transition-all">
-                        <nav class="flex items-center space-x-3 overflow-x-auto no-scrollbar pb-1">
+                    <div class="z-30 bg-gray-50/95 backdrop-blur-md py-4 mb-6 -mx-4 px-4 sm:mx-0 sm:px-0 transition-all">
+                            <nav class="flex items-center justify-center w-full space-x-3 overflow-x-auto no-scrollbar pb-1">
                             @php
                                 $baseClass = "flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border select-none whitespace-nowrap";
                                 // Active: Dark Theme
@@ -105,13 +105,21 @@
                                 <svg class="w-4 h-4 {{ request()->routeIs('posts.all') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                                 Feed
                             </a>
+                            @if(auth()->id() === $user->id)
+                                {{-- Saved Tab --}}
+                                <a href="{{ route('posts.saved', ['name' => $user->slug]) }}" 
+                                class="{{ $baseClass }} {{ request()->routeIs('posts.saved') ? $activeClass : $inactiveClass }}">
+                                    <svg class="w-4 h-4 {{ request()->routeIs('posts.saved') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                                    Saved
+                                </a>
 
-                            {{-- Saved Tab --}}
-                            <a href="{{ route('posts.saved', ['name' => $user->slug]) }}" 
-                               class="{{ $baseClass }} {{ request()->routeIs('posts.saved') ? $activeClass : $inactiveClass }}">
-                                <svg class="w-4 h-4 {{ request()->routeIs('posts.saved') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
-                                Saved
-                            </a>
+                                {{-- Liked Tab --}}
+                                <a href="{{ route('posts.liked', ['name' => $user->slug]) }}" 
+                                    class="{{ $baseClass }} {{ request()->routeIs('posts.liked') ? $activeClass : $inactiveClass }}">
+                                    <svg class="w-4 h-4 {{ request()->routeIs('posts.liked') ? 'text-pink-500 fill-pink-500' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                                    Liked
+                                </a>
+                            @endif
 
                             {{-- Lost Items Tab --}}
                             <a href="{{ route('lost.items', ['name' => $user->slug]) }}" 
@@ -120,13 +128,40 @@
                                 Lost Items
                             </a>
 
-                            {{-- Liked Tab --}}
-                            <a href="{{ route('posts.liked', ['name' => $user->slug]) }}" 
-                               class="{{ $baseClass }} {{ request()->routeIs('posts.liked') ? $activeClass : $inactiveClass }}">
-                                <svg class="w-4 h-4 {{ request()->routeIs('posts.liked') ? 'text-pink-500 fill-pink-500' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                                Liked
+                            <a href="{{ route('study.groups.currently.in', ['name' => $user->slug]) }}" 
+                               class="{{ $baseClass }} {{ request()->routeIs('study.groups.currently.in') ? $activeClass : $inactiveClass }}">
+                                <svg class="w-4 h-4 {{ request()->routeIs('study.groups.currently.in') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                               Study Groups
                             </a>
                         </nav>
+                        @if(request()->routeIs('study.groups.currently.in'))
+                            @php $groupTab = $tab ?? request()->get('tab', 'current'); @endphp
+                            <div class="flex items-center justify-center gap-3 mt-3 w-full">
+                                @php
+                                    $baseBtn = 'inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-shadow border select-none';
+                                    $activeBtn = 'bg-indigo-600 text-white border-indigo-600 shadow-lg';
+                                    $inactiveBtn = 'bg-white text-slate-700 border border-gray-200 hover:bg-gray-50 hover:text-indigo-600 shadow-sm';
+                                @endphp
+
+                                <a href="{{ route('study.groups.currently.in', ['name' => $user->slug]) }}"
+                                   class="{{ $baseBtn }} {{ $groupTab === 'current' ? $activeBtn : $inactiveBtn }}"
+                                   aria-current="{{ $groupTab === 'current' ? 'true' : 'false' }}">
+                                    <svg class="w-4 h-4 {{ $groupTab === 'current' ? 'text-white' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M9 20H4v-2a3 3 0 015.356-1.857M17 8a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    Currently In
+                                </a>
+
+                                <a href="{{ route('study.groups.currently.in', ['name' => $user->slug]) }}?tab=created"
+                                   class="{{ $baseBtn }} {{ $groupTab === 'created' ? $activeBtn : $inactiveBtn }}"
+                                   aria-current="{{ $groupTab === 'created' ? 'true' : 'false' }}">
+                                    <svg class="w-4 h-4 {{ $groupTab === 'created' ? 'text-white' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-3.866 0-7 1.79-7 4v2a2 2 0 002 2h10a2 2 0 002-2v-2c0-2.21-3.134-4-7-4zM12 4v4"/>
+                                    </svg>
+                                    Has Created
+                                </a>
+                            </div>
+                        @endif
                     </div>
 
                     {{-- POSTS GRID CONTENT --}}
@@ -224,24 +259,33 @@
                                 <p class="text-gray-500 mt-2">This feed is looking a little quiet.</p>
                             </div>
                         @endif
-                    @else
+                    @elseif(request()->routeIs('lost.items'))
                         {{-- LOST ITEMS GRID --}}
                         @if($lostItems->count() > 0)
                             <div class="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6 pb-24">
                                 
                                 @foreach ($lostItems as $lostItem)
-                                    @if(count($lostItem->images_lost) > 0)
+                                    @if(!empty($lostItem->images_lost) && count($lostItem->images_lost) > 0)
                                         <div class="group relative flex flex-col bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-1">
                                             
                                             <div class="absolute top-0 left-0 w-full h-1 sm:h-2 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"></div>
                                             <div class="p-2 sm:p-4 flex items-center justify-between bg-white border-b border-gray-50">
                                                 <span class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap">{{ $lostItem->created_at->format('M d') }}</span>   
-                                                <span class="line-clamp-2 text-sm whitespace-nowrap truncate ... ml-2 fond-bold">There is me inside of me and that me is within me</span>                                     
+                                                <strong class="line-clamp-2 text-sm whitespace-nowrap truncate ... ml-2 fond-bold">{{ $lostItem->item_name }}</strong>                                     
                                             </div>
                                             
                                             <a href="{{ route('lost-report.show', $lostItem->slug) }}" class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100">
                                                 @foreach($lostItem->images_lost as $images_lost)
                                                         <img src="{{ asset('storage/' . $images_lost) }}" class="w-full h-full object-cover" alt="Lost Image">
+                                                          <div class="absolute top-4 left-4">
+                                                    <span id="badge-{{ $lostItem->id }}" 
+                                                        class="status-badge px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-md shadow-lg transition-colors duration-300
+                                                        {{ $lostItem->found 
+                                                            ? 'bg-emerald-500 text-white shadow-emerald-500/20' 
+                                                            : 'bg-red-500 text-white shadow-red-500/20' }}">
+                                                        {{ $lostItem->found ? 'Found' : 'Lost' }}
+                                                    </span>
+                                                </div>
                                                 @endforeach
                                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 sm:p-6">
                                                     @if($lostItem->item_name)
@@ -260,8 +304,25 @@
                                             
                                             <div class="p-2 sm:p-4 flex items-center justify-between bg-white border-b border-gray-50">
                                                 <span class="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider">{{ $lostItem->created_at->format('M d') }}</span>
+                                                <strong class="line-clamp-2 text-sm whitespace-nowrap truncate ... ml-2 fond-bold">{{ $lostItem->item_name }}</strong>                                     
                                             </div>
                                             
+                                            <a href="{{ route('lost-report.show', $lostItem->slug) }}" class="relative aspect-[4/3] h-full w-full overflow-hidden bg-gray-100 block">
+                                                    <div class="w-full h-full flex flex-col items-center justify-center bg-slate-50 text-slate-300">
+                                                        <svg class="w-full h-full object-cover" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                                        <span class="text-xs font-bold uppercase tracking-wider">No Image</span>
+                                                    </div>
+
+                                                <div class="absolute top-4 left-4">
+                                                    <span id="badge-{{ $lostItem->id }}" 
+                                                        class="status-badge px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-md shadow-lg transition-colors duration-300
+                                                        {{ $lostItem->found 
+                                                            ? 'bg-emerald-500 text-white shadow-emerald-500/20' 
+                                                            : 'bg-red-500 text-white shadow-red-500/20' }}">
+                                                        {{ $lostItem->found ? 'Found' : 'Lost' }}
+                                                    </span>
+                                                </div>
+                                            </a>
                                             <div class="p-3 sm:p-8 flex flex-col flex-grow">
                                                 <a href="{{ route('lost-report.show', $lostItem->slug) }}" class="block flex-grow">
                                                     <p class="text-sm sm:text-xl font-serif text-gray-800 leading-relaxed group-hover:text-purple-900 transition-colors line-clamp-6">
@@ -270,11 +331,12 @@
                                                 </a>
 
                                                 <div class="pt-3 sm:pt-6 mt-2 sm:mt-4 border-t border-gray-50 flex justify-between items-center">
-                                                    <a href="{{ route('lost-report.show', $lostItem->slug) }}" class="text-[10px] sm:text-sm font-bold text-purple-600 hover:text-purple-800 transition-colors">
+                                                    <a href="{{ route('lost-report.show', $lostItem->slug) }}" class="w-full text-[10px] sm:text-sm font-bold text-purple-600 hover:text-purple-800 transition-colors">
                                                         Read
                                                     </a>
                                                 </div>
                                             </div>
+                                            
                                         </div>
                                     @endif
                                 @endforeach
@@ -288,8 +350,121 @@
                                 <p class="text-gray-500 mt-2">This feed is looking a little quiet.</p>
                             </div>
                         @endif
-                    @endif
+                    
+                    @elseif(request()->routeIs('study.groups.currently.in'))
+                        {{-- STUDY GROUPS GRID --}}
+                        @if($studyGroups->count() > 0)
+                            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 pb-24">
 
+                                @foreach ($studyGroups as $studyGroup)
+                                    <div class="group relative flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+                                        <!-- Top Gradient Bar -->
+                                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+
+                                        <!-- Date + Status -->
+                                        <div class="px-3 pt-3 pb-2 flex items-start justify-between gap-2">
+                                            <span class="text-[10px] sm:text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                                                {{ $studyGroup->created_at->format('M d') }}
+                                            </span>
+
+                                            @if($studyGroup->date->isFuture())
+                                                <span
+                                                    class="inline-flex w-fit items-center rounded-full font-bold uppercase
+                                                        px-2 py-0.5 text-[10px] tracking-normal
+                                                        sm:px-3 sm:py-1 sm:text-xs sm:tracking-widest
+                                                        bg-emerald-50 text-emerald-600 border border-emerald-100">
+                                                    
+                                                    <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1 sm:mr-2 animate-pulse"></span>
+
+                                                    {{-- Short text on mobile, full text on bigger screens --}}
+                                                    <span class="sm:hidden">Upcoming</span>
+                                                    <span class="hidden sm:inline">Upcoming Session</span>
+                                                </span>
+                                            @else
+                                                <span
+                                                    class="inline-flex w-fit items-center rounded-full font-bold uppercase
+                                                        px-2 py-0.5 text-[10px] tracking-normal
+                                                        sm:px-3 sm:py-1 sm:text-xs sm:tracking-widest
+                                                        bg-red-200 text-red-600 border border-red-100">
+                                                    
+                                                    <span class="w-2 h-2 rounded-full bg-red-500 mr-1 sm:mr-2"></span>
+
+                                                    {{-- Short text on mobile, full text on bigger screens --}}
+                                                    <span class="sm:hidden">Past</span>
+                                                    <span class="hidden sm:inline">Past Session</span>
+                                                </span>
+                                            @endif
+                                        </div>   
+                                        <!-- Body -->
+                                        <div class="p-3 flex flex-col flex-grow">
+
+                                            <!-- Group Name -->
+                                            <a href="{{ route('study-groups.show', $studyGroup->slug) }}" class="block mb-1">
+                                                <h3 class="text-sm sm:text-base font-semibold text-gray-800 line-clamp-2 group-hover:text-indigo-700 transition">
+                                                    {{ $studyGroup->group_name }}
+                                                </h3>
+                                            </a>
+
+                                            <!-- Description -->
+                                            @if($studyGroup->description)
+                                                <a href="{{ route('study-groups.show', $studyGroup->slug) }}" class="block mb-1">
+                                                    <p class="text-xs text-gray-500 mt-1 line-clamp-2">
+                                                        {{ $studyGroup->description }}
+                                                    </p>
+                                                </a>
+                                            @endif
+
+                                            <!-- Info -->
+                                            <div class="mt-3 space-y-1 text-[11px] text-gray-500">
+
+                                                    <div class="flex items-center gap-1">
+                                                        📅 <span>{{ \Carbon\Carbon::parse($studyGroup->date)->format('D, M jS') }}</span>
+                                                    </div>
+
+                                                    <div class="flex items-center gap-1">
+                                                        ⏰ <span>{{ $studyGroup->start_time->format('g:ia') }} - {{ $studyGroup->end_time->format('g:ia')  }}</span>
+                                                    </div>
+
+                                                @if($studyGroup->location)
+                                                    <div class="flex items-center gap-1">
+                                                        📍 <span class="truncate">{{ $studyGroup->location }}</span>
+                                                    </div>
+                                                @endif
+
+                                                <div class="flex items-center gap-1">
+                                                    👥 <span>{{ $studyGroup->members()->count() }} members</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Footer -->
+                                            <div class="pt-3 mt-auto border-t border-gray-100 flex justify-between items-center">
+                                                <span class="text-[11px] text-gray-400 truncate">
+                                                    Leader: {{ $studyGroup->leader->name }}
+                                                </span>
+
+                                                <a href="{{ route('study-groups.show', $studyGroup->slug) }}"
+                                                class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition">
+                                                    View →
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        @else
+                            <div class="flex flex-col items-center justify-center py-48 bg-white rounded-[3rem] border border-dashed border-gray-200 mb-24">
+                                <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                                    <span class="text-3xl">📚</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900">No Study Groups yet</h3>
+                                <p class="text-gray-500 mt-2">Looks like there are no groups created yet.</p>
+                            </div>
+                        @endif
+                    @else
+                        <p>Nope</p>
+                    @endif
                 </div>
             </div>
         </div>

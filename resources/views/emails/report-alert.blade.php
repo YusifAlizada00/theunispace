@@ -34,7 +34,7 @@
                     View Reported Post →
                 </a>
                 <p style="color: #9ca3af; font-size: 13px; margin-top: 40px;">
-                    — TheGoalify Team
+                    — TheUniSpace Team
                 </p>
             </td>
         </tr>

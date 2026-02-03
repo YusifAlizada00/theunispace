@@ -31,36 +31,6 @@ use App\Http\Controllers\ParkingSpotsController;
 Route::get('/parking-map', [MapController::class, 'index'])->name('map.show');
 
 
-Route::get('/search-results', function (\Illuminate\Http\Request $request) {
-    $query = $request->get('query', '');
-    $type = $request->get('type', 'students');
-
-    $results = [
-        'students' => [],
-        'groups' => [],
-        'items' => [],
-    ];
-
-    if ($type === 'students') {
-        $results['students'] = User::where('name', 'like', "%{$query}%")
-            ->limit(5)
-            ->get(['id', 'name', 'slug']);
-    }
-
-    if ($type === 'groups') {
-        $results['groups'] = StudyGroup::where('group_name', 'like', "%{$query}%")
-            ->limit(5)
-            ->get(['id', 'group_name']);
-    }
-
-    if ($type === 'items') {
-        $results['items'] = ReportLost::where('item_name', 'like', "%{$query}%")
-            ->limit(5)
-            ->get(['id', 'item_name']);
-    }
-
-    return response()->json($results);
-});
 
 //Auth with Google and Facebook
 Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])
@@ -83,6 +53,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/search', [SearchController::class, 'index'])->name('search');
 
     Route::get('/search/result', [SearchController::class, 'search'])->name('search.results');
+
+    Route::get('/search-results', [SearchController::class, 'getSearchResults'])->name('search.getResults');
+
 
 
     //Profile Routes
@@ -128,6 +101,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Following List
     Route::get('profile/@{name}/followings', [FollowController::class, 'getFollowings'])->name('followings.list');
 
+    //Lost and Found Routes
 
     Route::get('/lost-found', [ReportLostController::class, 'index'])->name('lost-found');
 
@@ -135,8 +109,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('contact-form', compact('reportLost'));
     })->name('contact-form');
 
-    Route::post('/lost-found/lost-report', [ReportLostController::class, 'store'])
-        ->name('lost-report');
+    Route::get('/lost-found/{reportLost:slug}', [ReportLostController::class, 'show'])
+    ->name('lost-report.show');
 
     Route::get('/profile/@{name}/lost-items', [ReportLostController::class, 'userLostItems'])->name('lost.items');
 
@@ -144,26 +118,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('report-lost');
     })->name('report-lost');
 
-    Route::get('/lost-found/{reportLost:slug}', [ReportLostController::class, 'show'])
-        ->name('lost-report.show');
-
-    Route::get('/parking-spots', [ParkingSpotsController::class, 'show'])->name('parking-spots');
-
-    Route::post('/create-parking-spot', [ParkingSpotsController::class, 'store'])->name('parking-spot.store');
-
-    Route::delete('/lost-found/report-lost/{reportLost:slug}/delete', [ReportLostController::class, 'destroy'])->name('report-lost.delete');
-
     Route::post('/contact-lost-report/{reportLost:id}', [ReportLostController::class, 'contact'])->name('contact-lost-report');
     // Mark a lost report as found (owner only)
     Route::post('/lost-found/{reportLost:id}/found', [ReportLostController::class, 'markFound'])->name('report-lost.markFound');
 
-    Route::get('/study-groups', [App\Http\Controllers\StudyGroupController::class, 'index'])->name('study-groups');
+    Route::post('/lost-found/lost-report', [ReportLostController::class, 'store'])
+        ->name('lost-report');
+
+    Route::delete('/lost-found/report-lost/{reportLost:slug}/delete', [ReportLostController::class, 'destroy'])->name('report-lost.delete');
+
+    
+    // Study Group Routes
+
+    Route::get('/study-groups', [StudyGroupController::class, 'index'])->name('study-groups');
 
     Route::get('/study-groups/create-group', function () {
         return view('create-study-group');
     })->name('study-groups.create');
-
-    Route::delete('/study-group/delete/{studyGroup:slug}', [StudyGroupController::class, 'destroy'])->name('study-group.destroy');
 
     Route::get('/study-groups/edit/{studyGroup:slug}', [StudyGroupController::class, 'edit'])->name('study-groups.edit');
 
@@ -173,9 +144,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::put('/study-group/update/{studyGroup:slug}', [StudyGroupController::class, 'update'])->name('study-groups.update');
 
-    Route::get('/create-parking-spot', [ParkingSpotsController::class, 'create'])->name('create-parking-spot');
+    Route::get('/profile/@{name}/study-groups', [StudyGroupController::class, 'userStudyGroups'])->name('study.groups.currently.in');
+
+    Route::delete('/study-group/delete/{studyGroup:slug}', [StudyGroupController::class, 'destroy'])->name('study-group.destroy');
 
     //phpinfo Route
+    
     Route::get('/phpinfo', function () {
         return view('phpinfo');
     });

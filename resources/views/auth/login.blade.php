@@ -11,9 +11,9 @@
                 </div>
 
                 <div class="relative z-10 text-center">
-                    <img src="{{ asset('webImages/thegoalify-logo.png') }}"
+                    <img src="{{ asset('webImages/theunispace-logo.png') }}"
                          class="w-44 h-44 mx-auto object-contain drop-shadow-xl"
-                         alt="Logo">
+                         alt="TheUniSpace Logo">
                     <p class="mt-6 text-gray-500 font-medium">
                         Track your goals,<br>achieve your dreams.
                     </p>
@@ -25,7 +25,7 @@
                 
                 {{-- Mobile Logo --}}
                 <div class="md:hidden text-center mb-6">
-                    <img src="{{ asset('webImages/thegoalify-logo.png') }}"
+                    <img src="{{ asset('webImages/theunispace-logo.png') }}"
                          class="w-24 h-24 mx-auto object-contain"
                          alt="Logo">
                 </div>

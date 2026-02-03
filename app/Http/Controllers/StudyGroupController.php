@@ -76,6 +76,24 @@ class StudyGroupController extends Controller
     }
 
 
+    public function userStudyGroups($name)
+    {
+        // Get the study groups for this profile page
+        $user = \App\Models\User::where('slug', $name)->firstOrFail();
+
+        // Allow a tab query: 'current' (member) or 'created' (leader)
+        $tab = request()->get('tab', 'current');
+
+        if ($tab === 'created') {
+            $studyGroups = StudyGroup::where('leader_id', $user->id)->latest()->get();
+        } else {
+            $studyGroups = $user->joinedGroups()->latest()->get();
+        }
+
+        return view('profile.show', compact('studyGroups', 'user', 'tab'));
+    }
+
+
     public function destroy(StudyGroup $studyGroup)
     {
         if(Auth::user()->id != $studyGroup->leader->id)

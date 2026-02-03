@@ -22,7 +22,7 @@ class SupportRequestsResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::QuestionMarkCircle;
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 7;
 
     public static function getNavigationBadge(): ?string
     {

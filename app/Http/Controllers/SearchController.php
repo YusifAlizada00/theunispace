@@ -40,4 +40,36 @@ class SearchController extends Controller
 
         return view('search', compact('users', 'lostItems', 'studyGroups', 'query', 'type'));
     }
+
+    public function getSearchResults(Request $request)
+    {
+        $query = $request->get('query', '');
+        $type = $request->get('type', 'students');
+
+        $results = [
+            'students' => [],
+            'groups' => [],
+            'items' => [],
+        ];
+
+        if ($type === 'students') {
+            $results['students'] = User::where('name', 'like', "%{$query}%")
+                ->limit(5)
+                ->get(['id', 'name', 'slug']);
+        }
+
+        if ($type === 'groups') {
+            $results['groups'] = StudyGroup::where('group_name', 'like', "%{$query}%")
+                ->limit(5)
+                ->get(['id', 'group_name']);
+        }
+
+        if ($type === 'items') {
+            $results['items'] = ReportLost::where('item_name', 'like', "%{$query}%")
+                ->limit(5)
+                ->get(['id', 'item_name']);
+        }
+
+        return response()->json($results);
+    }
 }

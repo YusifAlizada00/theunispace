@@ -103,17 +103,17 @@
 
                             <div class="flex items-center gap-3">
                                 <div class="flex -space-x-3 overflow-hidden p-1">
-                                    @forelse($studyGroup->members as $member)
+                                    @forelse($studyGroup->members->take(4) as $member)
                                         <img class="w-12 h-12 rounded-full ring-4 ring-white shadow-sm" src="{{ asset($member->profile_photo_url) }}" alt="{{ $member->name }}">
                                     @empty
                                         <p class="text-sm text-gray-400 italic">No members have joined this group yet.</p>
                                     @endforelse
                                 </div>
-                                @if(count($studyGroup->members) > 3)
+                                @if(count($studyGroup->members) > 4)
                                     <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold text-sm ring-4 ring-white">
                                         + {{ count($studyGroup->members) - 3 }}
                                     </div>
-                                    <p class="text-sm text-gray-400 ml-2">and {{ count($studyGroup->members) - 3 }} other</p>
+                                    <p class="text-sm text-gray-400 ml-2">{{ count($studyGroup->members) - 4 }}</p>
                                 @endif
                             </div>
                         </div>

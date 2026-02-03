@@ -14,8 +14,8 @@
                 </div>
 
                 {{-- Logo --}}
-                <img src="{{ asset('webImages/thegoalify-logo.png') }}"
-                     alt="TheGoalify Logo"
+                <img src="{{ asset('webImages/theunispace-logo.png') }}"
+                     alt="TheUniSpace Logo"
                      class="relative z-10 w-40 h-40 object-contain drop-shadow-xl mb-6">
                 
                 {{-- Security Icon (Lock) --}}

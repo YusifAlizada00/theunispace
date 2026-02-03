@@ -62,7 +62,7 @@
             {{-- Logo Area --}}
             <div class=" md:-ml-8 -mr-9 px-0 py-0 mb-2 -mt-4">
                 <a href="{{ route('dashboard.all.posts') }}" class="-mb-6 whitespace-nowrap flex items-center gap-2">
-                    <img src="{{ asset('icons/theunipulse-logo.png') }}" alt="" class=" w-30 h-16">
+                    <img src="{{ asset('webImages/theunispace-logo.png') }}" alt="" class=" w-30 h-16">
                 </a>
             </div>
 
@@ -71,7 +71,7 @@
                 @auth
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}"
-                                class="{{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items')
+                                class="{{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in')
                         ? 'flex items-center gap-3 w-full rounded-2xl bg-gray-200 text-gray-900 p-3 shadow-lg shadow-slate-900/20 transform transition-all duration-200'
                         : 'group flex items-center gap-3 w-full rounded-2xl hover:bg-gray-300 hover:shadow-md border border-transparent hover:border-gray-100 p-3 transition-all duration-200'}}">
                                 <div class="w-10 h-10 flex-shrink-0 relative">
@@ -83,9 +83,9 @@
                                 </div>
                                 <div class="xl:flex flex-col hidden overflow-hidden">
                                     <span
-                                        class="font-bold text-sm truncate {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items') ? 'text-gray-900' : 'text-gray-900 group-hover:text-gray-900' }}">{{ Auth::user()->name }}</span>
+                                        class="font-bold text-sm truncate {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in') ? 'text-gray-900' : 'text-gray-900 group-hover:text-gray-900' }}">{{ Auth::user()->name }}</span>
                                     <span
-                                        class="text-[10px] uppercase tracking-wider font-bold {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items') ? 'text-gray-400' : 'text-gray-400' }}">View
+                                        class="text-[10px] uppercase tracking-wider font-bold {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in') ? 'text-gray-400' : 'text-gray-400' }}">View
                                         Profile</span>
                                 </div>
                             </a>
@@ -155,7 +155,7 @@
                                 class="w-6 h-6 transition-transform duration-300 group-hover:scale-110
                                  {{ request()->routeIs('map/show') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
                         </div>
-                        <span class="font-bold text-sm min-w-[90px]">Parking Spots</span>
+                        <span class="font-bold text-sm min-w-[90px]">Free Parking</span>
                     </a>
 
                     {{-- Notifications --}}
@@ -207,7 +207,7 @@
             class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-4 py-3 flex justify-between items-center transition-all duration-300 shadow-sm">
 
             {{-- Logo --}}
-            <img src="{{ asset('icons/theunipulse-logo.png') }}" alt="" class="w-24 h-16 -mt-4 -ml-6 -mb-12">
+            <img src="{{ asset('webImages/theunispace-logo.png') }}" alt="" class="w-24 h-16 -mt-4 -ml-6 -mb-12">
 
 
             {{-- Search Input --}}

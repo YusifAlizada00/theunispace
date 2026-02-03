@@ -46,7 +46,7 @@
 
         <p style="font-size: 14px; color: #555;">
             Thank you,<br>
-            <strong>TheGoalify Team</strong>
+            <strong>TheUniSpace Team</strong>
         </p>
 
     </div>

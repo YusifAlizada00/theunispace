@@ -24,7 +24,7 @@ class CommentResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ChatBubbleLeftRight;
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 6;
 
 
     public static function getNavigationBadge(): ?string

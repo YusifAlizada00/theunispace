@@ -8,14 +8,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Title -->
-    <title>{{ config('app.name', 'Goalify') }}</title>
+    <title>{{ config('app.name', 'TheUniSpace') }}</title>
 
     <!-- SEO -->
     <meta name="description" content="Achieve your goals with friends. Share goals, get motivated, and stay consistent.">
     <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- OG Tags -->
-    <meta property="og:title" content="{{ config('app.name', 'Goalify') }}">
+    <meta property="og:title" content="{{ config('app.name', 'TheUniSpace') }}">
     <meta property="og:description" content="Achieve your goals with friends. Share goals, stay motivated, and accomplish more.">
     <meta property="og:image" content="/icons/icon-512.png">
     <meta property="og:url" content="{{ url()->current() }}">

@@ -1,12 +1,8 @@
 <x-app-layout>
-    {{-- Main Container --}}
     <div class="max-w-2xl mx-auto mt-6 px-4" x-data="searchForm()">
-
-        {{-- Search Form --}}
         <form action="{{ route('search.results') }}" method="GET" class="relative z-20">
 
             {{-- Hidden Input to send the selected 'scope' to Laravel --}}
-            {{-- This ensures the controller knows if you want 'students', 'groups', or 'items' --}}
             <input type="hidden" name="type" x-bind:value="scope">
 
             {{-- Visual Input Bar --}}
@@ -43,7 +39,6 @@
                     </div>
                 </div>
 
-                {{-- Main Text Input --}}
                 <input type="text" name="search" value="{{ request('search') }}" x-model="query"
                     class="flex-1 bg-transparent border-none p-0 text-sm text-gray-700 placeholder-gray-400 focus:ring-0 focus:outline-none"
                     placeholder="Search..." autocomplete="off">
@@ -60,7 +55,6 @@
             </div>
         </form>
 
-        {{-- Divider --}}
         <div class="w-full border-b border-gray-200 mt-6 mb-4"></div>
 
         {{-- Search Results --}}
@@ -94,30 +88,27 @@
                     <p class="px-5 pt-4 pb-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Study Groups</p>
                     <div class="divide-y divide-gray-50">
                         @foreach ($studyGroups as $group)
-                            {{-- TODO: Add your actual route here, e.g. route('groups.show', $group->id) --}}
-                            <a href="#" class="block px-5 py-3 hover:bg-indigo-50 transition-colors">
+                            <a href="{{ route('study-groups.show', $group->slug) }}" class="block px-5 py-3 hover:bg-indigo-50 transition-colors">
                                 <span class="font-semibold text-gray-800 text-sm">{{ $group->group_name }}</span><br>
                                 <span class="text-gray-400 text-sm">{{ $group->subject }}</span>
                             </a>
                         @endforeach
                     </div>
 
-                    {{-- 3. LOST ITEMS RESULTS --}}
+                    {{-- 3. LOST & FOUND ITEMS RESULTS --}}
                 @elseif($lostItems->isNotEmpty())
                     <p class="px-5 pt-4 pb-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Lost & Found</p>
                     <div class="divide-y divide-gray-50">
                         @foreach ($lostItems as $item)
-                            {{-- TODO: Add your actual route here, e.g. route('items.show', $item->id) --}}
-                            <a href="#" class="block px-5 py-3 hover:bg-indigo-50 transition-colors">
+                            <a href="{{ route('lost-report.show', $item->slug) }}" class="block px-5 py-3 hover:bg-indigo-50 transition-colors">
                                 <span class="font-semibold text-gray-800 text-sm">{{ $item->item_name }}</span>
                             </a>
                         @endforeach
                     </div>
 
-                    {{-- 4. NO RESULTS FOUND --}}
                 @else
+                    {{-- 4. NO RESULTS --}}
                     <div class="px-5 py-8 text-center">
-                        {{-- This displays "People", "Groups", or "Items" depending on what was searched --}}
                         <p class="text-sm text-gray-500">
                             No results found for "<span class="font-semibold text-gray-700">{{ request('search') }}</span>"
                             in {{ rtrim(request('type', 'People'), 's') }}.
@@ -128,7 +119,6 @@
         @endif
     </div>
 
-    {{-- Alpine Logic --}}
     <script>
         function searchForm() {
             return {
