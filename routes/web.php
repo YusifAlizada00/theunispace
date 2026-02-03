@@ -27,6 +27,8 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReportLostController;
 use App\Models\ReportLost;
 use App\Http\Controllers\ParkingSpotsController;
+use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
+use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
 
 Route::get('/parking-map', [MapController::class, 'index'])->name('map.show');
 
@@ -45,6 +47,8 @@ Route::get('/auth/facebook/redirect', [FacebookController::class, 'redirect'])
 Route::get('/auth/facebook/callback', [FacebookController::class, 'callback'])
     ->name('facebook.callback');
 
+    Route::get('/terms-of-service', [TermsOfServiceController::class, 'show'])->name('terms.show');
+Route::get('/privacy-policy', [PrivacyPolicyController::class, 'show'])->name('policy.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
