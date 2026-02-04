@@ -71,7 +71,7 @@
                 @auth
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}"
-                                class="{{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit')
+                                class="{{ (request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') && (request()->routeIs('profile.edit') || request()->route('name') === Auth::user()->slug))
                         ? 'flex items-center gap-3 w-full rounded-2xl bg-gray-200 text-gray-900 p-3 shadow-lg shadow-slate-900/20 transform transition-all duration-200'
                         : 'group flex items-center gap-3 w-full rounded-2xl hover:bg-gray-300 hover:shadow-md border border-transparent hover:border-gray-100 p-3 transition-all duration-200'}}">
                                 <div class="w-10 h-10 flex-shrink-0 relative">
@@ -83,9 +83,9 @@
                                 </div>
                                 <div class="xl:flex flex-col hidden overflow-hidden">
                                     <span
-                                        class="font-bold text-sm truncate {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') ? 'text-gray-900' : 'text-gray-900 group-hover:text-gray-900' }}">{{ Auth::user()->name }}</span>
+                                        class="font-bold text-sm truncate {{ (request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') && (request()->routeIs('profile.edit') || request()->route('name') === Auth::user()->slug)) ? 'text-gray-900' : 'text-gray-900 group-hover:text-gray-900' }}">{{ Auth::user()->name }}</span>
                                     <span
-                                        class="text-[10px] uppercase tracking-wider font-bold {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') ? 'text-gray-400' : 'text-gray-400' }}">View
+                                        class="text-[10px] uppercase tracking-wider font-bold {{ (request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') && (request()->routeIs('profile.edit') || request()->route('name') === Auth::user()->slug)) ? 'text-gray-400' : 'text-gray-400' }}">View
                                         Profile</span>
                                 </div>
                             </a>

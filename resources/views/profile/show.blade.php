@@ -85,54 +85,73 @@
                     </div>
                 </div>
 
-                {{-- RIGHT CONTENT AREA --}}
                 <div class="md:col-span-8 lg:col-span-9">
                     
-                    {{-- NEW BEAUTIFUL TABS --}}
                     <div class="z-30 bg-gray-50/95 backdrop-blur-md py-4 mb-6 -mx-4 px-4 sm:mx-0 sm:px-0 transition-all">
-                            <nav class="flex items-center justify-center w-full space-x-3 overflow-x-auto no-scrollbar pb-1">
-                            @php
-                                $baseClass = "flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border select-none whitespace-nowrap";
-                                // Active: Dark Theme
-                                $activeClass = "bg-slate-900 text-white border-slate-900 shadow-xl shadow-slate-900/10 transform scale-105";
-                                // Inactive: White Theme
-                                $inactiveClass = "bg-white text-slate-500 border-gray-200 hover:border-gray-300 hover:text-slate-900 hover:shadow-md hover:-translate-y-0.5";
-                            @endphp
+                        <nav class="flex items-center justify-center w-full py-2 md:py-4">
+                            <div class="flex items-center w-full md:w-auto p-1 space-x-1 md:space-x-2 bg-white/50 backdrop-blur-sm border border-gray-100 rounded-xl md:rounded-full shadow-sm">
+                                
+                                @php
+                                    $baseClass = "group flex-1 md:flex-none flex items-center justify-center py-3 md:px-6 md:py-3 rounded-lg md:rounded-full transition-all duration-300 ease-out select-none whitespace-nowrap";
+                                    
+                                    $activeClass = "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 ring-1 ring-indigo-600";
+                                    
+                                    $inactiveClass = "text-gray-500 hover:bg-indigo-50 hover:text-indigo-600";
+                                @endphp
 
-                            {{-- Feed Tab --}}
-                            <a href="{{ route('posts.all', ['name' => $user->slug]) }}" 
-                               class="{{ $baseClass }} {{ request()->routeIs('posts.all') ? $activeClass : $inactiveClass }}">
-                                <svg class="w-4 h-4 {{ request()->routeIs('posts.all') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                                Feed
-                            </a>
-                            @if(auth()->id() === $user->id)
-                                {{-- Saved Tab --}}
-                                <a href="{{ route('posts.saved', ['name' => $user->slug]) }}" 
-                                class="{{ $baseClass }} {{ request()->routeIs('posts.saved') ? $activeClass : $inactiveClass }}">
-                                    <svg class="w-4 h-4 {{ request()->routeIs('posts.saved') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
-                                    Saved
+                                {{-- 1. FEED --}}
+                                <a href="{{ route('posts.all', ['name' => $user->slug]) }}" 
+                                class="{{ $baseClass }} {{ request()->routeIs('posts.all') ? $activeClass : $inactiveClass }}"
+                                title="Feed">
+                                    <svg class="w-6 h-6 md:w-5 md:h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                    </svg>
+                                    <span class="hidden md:block md:ml-2 font-semibold text-sm">Feed</span>
                                 </a>
 
-                                {{-- Liked Tab --}}
-                                <a href="{{ route('posts.liked', ['name' => $user->slug]) }}" 
-                                    class="{{ $baseClass }} {{ request()->routeIs('posts.liked') ? $activeClass : $inactiveClass }}">
-                                    <svg class="w-4 h-4 {{ request()->routeIs('posts.liked') ? 'text-pink-500 fill-pink-500' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                                    Liked
+                                @if(auth()->id() === $user->id)
+                                    {{-- 2. SAVED --}}
+                                    <a href="{{ route('posts.saved', ['name' => $user->slug]) }}" 
+                                    class="{{ $baseClass }} {{ request()->routeIs('posts.saved') ? $activeClass : $inactiveClass }}"
+                                    title="Saved">
+                                        <svg class="w-6 h-6 md:w-5 md:h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                        </svg>
+                                        <span class="hidden md:block md:ml-2 font-semibold text-sm">Saved</span>
+                                    </a>
+
+                                    {{-- 3. LIKED --}}
+                                    <a href="{{ route('posts.liked', ['name' => $user->slug]) }}" 
+                                    class="{{ $baseClass }} {{ request()->routeIs('posts.liked') ? $activeClass : $inactiveClass }}"
+                                    title="Liked">
+                                        <svg class="w-6 h-6 md:w-5 md:h-5 transition-transform group-hover:scale-110 {{ request()->routeIs('posts.liked') ? 'fill-white stroke-white' : '' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                        <span class="hidden md:block md:ml-2 font-semibold text-sm">Liked</span>
+                                    </a>
+                                @endif
+
+                                {{-- 4. LOST ITEMS --}}
+                                <a href="{{ route('lost.items', ['name' => $user->slug]) }}" 
+                                class="{{ $baseClass }} {{ request()->routeIs('lost.items') ? $activeClass : $inactiveClass }}"
+                                title="Lost Items">
+                                    <svg class="w-6 h-6 md:w-5 md:h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                    <span class="hidden md:block md:ml-2 font-semibold text-sm">Lost & Found</span>
                                 </a>
-                            @endif
 
-                            {{-- Lost Items Tab --}}
-                            <a href="{{ route('lost.items', ['name' => $user->slug]) }}" 
-                               class="{{ $baseClass }} {{ request()->routeIs('lost.items') ? $activeClass : $inactiveClass }}">
-                                <svg class="w-4 h-4 {{ request()->routeIs('lost.items') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                                Lost Items
-                            </a>
+                                {{-- 5. STUDY GROUPS --}}
+                                <a href="{{ route('study.groups.currently.in', ['name' => $user->slug]) }}" 
+                                class="{{ $baseClass }} {{ request()->routeIs('study.groups.currently.in') ? $activeClass : $inactiveClass }}"
+                                title="Study Groups">
+                                    <svg class="w-6 h-6 md:w-5 md:h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    <span class="hidden md:block md:ml-2 font-semibold text-sm">Groups</span>
+                                </a>
 
-                            <a href="{{ route('study.groups.currently.in', ['name' => $user->slug]) }}" 
-                               class="{{ $baseClass }} {{ request()->routeIs('study.groups.currently.in') ? $activeClass : $inactiveClass }}">
-                                <svg class="w-4 h-4 {{ request()->routeIs('study.groups.currently.in') ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                               Study Groups
-                            </a>
+                            </div>
                         </nav>
                         @if(request()->routeIs('study.groups.currently.in'))
                             @php $groupTab = $tab ?? request()->get('tab', 'current'); @endphp
