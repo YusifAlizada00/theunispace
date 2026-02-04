@@ -33,7 +33,6 @@ use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
 Route::get('/parking-map', [MapController::class, 'index'])->name('map.show');
 
 
-
 //Auth with Google and Facebook
 Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])
     ->name('google.redirect');
@@ -122,14 +121,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('contact-form', compact('reportLost'));
     })->name('contact-form');
 
+    
+    Route::get('/lost-found/report-lost', function () {
+        return view('report-lost');
+    })->name('report-lost');
+
+
     Route::get('/lost-found/{reportLost:slug}', [ReportLostController::class, 'show'])
     ->name('lost-report.show');
 
     Route::get('/profile/@{name}/lost-items', [ReportLostController::class, 'userLostItems'])->name('lost.items');
 
-    Route::get('/lost-found/report-lost', action: function () {
-        return view('report-lost');
-    })->name('report-lost');
 
     Route::post('/contact-lost-report/{reportLost:id}', [ReportLostController::class, 'contact'])->name('contact-lost-report');
     // Mark a lost report as found (owner only)
