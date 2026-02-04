@@ -71,7 +71,7 @@
                 @auth
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}"
-                                class="{{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in')
+                                class="{{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit')
                         ? 'flex items-center gap-3 w-full rounded-2xl bg-gray-200 text-gray-900 p-3 shadow-lg shadow-slate-900/20 transform transition-all duration-200'
                         : 'group flex items-center gap-3 w-full rounded-2xl hover:bg-gray-300 hover:shadow-md border border-transparent hover:border-gray-100 p-3 transition-all duration-200'}}">
                                 <div class="w-10 h-10 flex-shrink-0 relative">
@@ -83,9 +83,9 @@
                                 </div>
                                 <div class="xl:flex flex-col hidden overflow-hidden">
                                     <span
-                                        class="font-bold text-sm truncate {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in') ? 'text-gray-900' : 'text-gray-900 group-hover:text-gray-900' }}">{{ Auth::user()->name }}</span>
+                                        class="font-bold text-sm truncate {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') ? 'text-gray-900' : 'text-gray-900 group-hover:text-gray-900' }}">{{ Auth::user()->name }}</span>
                                     <span
-                                        class="text-[10px] uppercase tracking-wider font-bold {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in') ? 'text-gray-400' : 'text-gray-400' }}">View
+                                        class="text-[10px] uppercase tracking-wider font-bold {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') ? 'text-gray-400' : 'text-gray-400' }}">View
                                         Profile</span>
                                 </div>
                             </a>
@@ -100,9 +100,14 @@
                     {{-- Feed --}}
                     <a href="{{ route('dashboard.all.posts') }}"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
-                              {{ request()->routeIs('dashboard.all.posts') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
+                                  {{ request()->routeIs('dashboard.all.posts') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="relative flex-shrink-0 -ml-2">
-                            <svg class="w-6 h-6 {{ request()->routeIs('dashboard.all.posts') ? 'text-black' : 'text-gray-700' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                            <svg class="w-6 h-6 {{ request()->routeIs('dashboard.all.posts') ? 'text-black' : 'text-gray-700' }}"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                                </path>
+                            </svg>
                             @if(request()->routeIs('dashboard.all.posts'))
                                 <span class="absolute -right-1 -top-1 w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
                             @endif
@@ -113,11 +118,11 @@
                     {{-- Search --}}
                     <a href="{{ route('search') }}"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
-                              {{ request()->routeIs('search', 'search.results') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
+                                  {{ request()->routeIs('search', 'search.results') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
                             <img src="{{ asset('icons/search.png') }}" alt="Search"
                                 class="w-6 h-6 transition-transform duration-300
-                                 {{ request()->routeIs('search', 'search.results') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0 group-hover:scale-110' }}">
+                                     {{ request()->routeIs('search', 'search.results') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0 group-hover:scale-110' }}">
                         </div>
                         <span class="font-bold text-sm min-w-[90px]">Search</span>
                     </a>
@@ -125,11 +130,11 @@
                     {{-- Study Groups --}}
                     <a href="{{ route('study-groups') }}"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
-                              {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
+                                  {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
                             <img src="{{ asset('icons/group.png') }}" alt="Study Groups"
                                 class="w-6 h-6 transition-transform duration-300 group-hover:scale-110
-                                 {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
+                                     {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
                         </div>
                         <span class="font-bold text-sm min-w-[90px]">Study Groups</span>
                     </a>
@@ -137,11 +142,11 @@
                     {{-- Lost & Found --}}
                     <a href="{{ route('lost-found') }}"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
-                              {{ request()->routeIs('lost-found', 'contact-form', 'report-lost', 'lost-report.show') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
+                                  {{ request()->routeIs('lost-found', 'contact-form', 'report-lost', 'lost-report.show') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
                             <img src="{{ asset('icons/lost.png') }}" alt="Lost"
                                 class="w-6 h-6 transition-transform duration-300 group-hover:scale-110
-                                 {{ request()->routeIs('lost-found', 'contact-form', 'report-lost', 'lost-report.show') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
+                                     {{ request()->routeIs('lost-found', 'contact-form', 'report-lost', 'lost-report.show') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
                         </div>
                         <span class="font-bold text-sm min-w-[90px]">Lost & Found</span>
                     </a>
@@ -149,11 +154,11 @@
                     {{-- Parking --}}
                     <a href="{{ route('map.show') }}"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
-                              {{ request()->routeIs('map.show') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
+                                  {{ request()->routeIs('map.show') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
                             <img src="{{ asset('icons/car-parking.png') }}" alt="Parking"
                                 class="w-6 h-6 transition-transform duration-300 group-hover:scale-110
-                                 {{ request()->routeIs('map/show') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
+                                     {{ request()->routeIs('map/show') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
                         </div>
                         <span class="font-bold text-sm min-w-[90px]">Free Parking</span>
                     </a>
@@ -166,11 +171,11 @@
                     {{-- Help & Support --}}
                     <a href="{{ route('help-support', parameters: ['name' => Auth::user()->slug]) }}"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
-                              {{ request()->routeIs('help-support') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
+                                  {{ request()->routeIs('help-support') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
                             <img src="{{ asset('icons/help.png') }}" alt="Help"
                                 class="w-6 h-6 transition-transform duration-300 group-hover:scale-110
-                                 {{ request()->routeIs('help-support') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
+                                     {{ request()->routeIs('help-support') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
                         </div>
                         <span class="font-bold text-sm min-w-[90px]">Help & Support</span>
                     </a>
@@ -204,152 +209,93 @@
 
     <div class="md:hidden">
         <div
-            class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-4 py-3 flex justify-between items-center transition-all duration-300 shadow-sm">
+            class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-2 sm:px-4 py-3 flex items-center justify-between gap-2 transition-all duration-300 shadow-sm">
 
             {{-- Logo --}}
-            <img src="{{ asset('webImages/theunispace-logo.png') }}" alt="" class="w-24 h-16 -mt-4 -ml-6 -mb-12">
+            <div class="shrink-0">
+                <img src="{{ asset('webImages/theunispace-logo.png') }}" alt="TheUniSpace Logo"
+                    class="w-24  h-24 object-contain -mt-3 -mb-8 -ml-4 sm:-ml-4">
+            </div>
 
+            {{-- Search Input (Flexible Width) --}}
+            <div class="flex-1 relative min-w-0 max-w-md -ml-5" x-data="searchComponent()"
+                @click.outside="open = false">
 
-            {{-- Search Input --}}
-            <div class="relative flex-1 max-w-md mx-4 -ml-4" x-data="searchComponent()" @click.outside="open = false">
+                <form action="" onsubmit="return false;"
+                    class="relative flex items-center bg-gray-100 rounded-full px-2 sm:px-3 py-1.5 w-full">
 
-                <!-- Search Input -->
-                <div class="relative flex items-center bg-gray-100 rounded-full px-3">
-
-                    <!-- Scope Selector -->
-                    <button @click="toggleScope" class="text-xs font-semibold text-gray-500 mr-2 whitespace-nowrap border-r border-gray-300 pr-2">
-                        <span x-text="scopeLabel"></span> ▾
+                    <button type="button" @click="toggleScope"
+                        class="shrink-0 flex items-center text-xs font-semibold text-gray-500 mr-1.5 border-r border-gray-300 pr-1.5">
+                        <span x-text="scopeLabel" class="truncate max-w-[50px] sm:max-w-none"></span>
+                        <span class="ml-0.5">▾</span>
                     </button>
 
-                    <!-- Input -->
-                    <input type="text" placeholder="Search..." x-model="query" @input.debounce.300ms="search"
-                        @keydown.escape="open = false"
-                        class="flex-1 bg-transparent py-2 rounded-lg border-none text-sm text-gray-700 placeholder-gray-400 focus:outline-none">
+                    <input type="search" name="site_search_unique" autocomplete="off" placeholder="Search..."
+                        x-model="query" @input.debounce.300ms="search" @keydown.escape="open = false"
+                        class="w-full bg-transparent border-none p-0 text-sm text-gray-700 placeholder-gray-400 focus:ring-0 focus:outline-none h-6 leading-6">
 
-                    <!-- Icon -->
-                    <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    <svg class="w-4 h-4 text-gray-400 shrink-0 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
                     </svg>
-                </div>
 
-                <!-- Scope Selector Dropdown -->
-                <div x-show="showScope" x-transition
-                    class="absolute z-50 mt-1 bg-white border rounded-lg shadow w-44 text-sm">
+                </form>
+
+                <div x-show="showScope" x-transition style="display: none;"
+                    class="absolute left-0 top-full z-50 mt-1 bg-white border rounded-lg shadow-lg w-32 sm:w-44 text-sm">
                     <template x-for="option in scopes">
-                        <button @click="selectScope(option)" class="block w-full text-left px-3 py-2 hover:bg-gray-100">
+                        <button @click="selectScope(option)"
+                            class="block w-full text-left px-3 py-2 hover:bg-gray-100 truncate">
                             <span x-text="option.label"></span>
                         </button>
                     </template>
                 </div>
 
-                <!-- Results -->
-                <div x-show="open" x-transition
-                    class="absolute z-40 w-full mt-2 bg-white border rounded-xl shadow-lg max-h-72 overflow-y-auto">
+                <div x-show="open" x-transition style="display: none;"
+                    class="absolute left-0 top-full z-40 w-full mt-2 bg-white border rounded-xl shadow-lg max-h-72 overflow-y-auto">
 
-                    <!-- Students -->
                     <template x-if="results.students?.length && scope === 'students'">
                         <div>
                             <p class="px-4 pt-3 text-xs font-bold text-gray-400 uppercase">Students</p>
                             <template x-for="user in results.students" :key="user.id">
                                 <a :href="`/profile/@${user.slug}/posts`"
-                                    class="block px-4 py-2 text-sm hover:bg-indigo-50" x-text="user.name"></a>
+                                    class="block px-4 py-2 text-sm hover:bg-indigo-50 truncate" x-text="user.name"></a>
                             </template>
                         </div>
                     </template>
 
-                    <!-- Groups -->
                     <template x-if="results.groups?.length && scope === 'groups'">
                         <div>
-                            <p class="px-4 pt-3 text-xs font-bold text-gray-400 uppercase">Study Groups</p>
+                            <p class="px-4 pt-3 text-xs font-bold text-gray-400 uppercase">Groups</p>
                             <template x-for="group in results.groups" :key="group.id">
-                                <a :href="`/groups/${group.id}`" class="block px-4 py-2 text-sm hover:bg-indigo-50"
+                                <a :href="`/groups/${group.id}`"
+                                    class="block px-4 py-2 text-sm hover:bg-indigo-50 truncate"
                                     x-text="group.group_name"></a>
                             </template>
                         </div>
                     </template>
 
-                    <!-- Lost & Found -->
                     <template x-if="results.items?.length && scope === 'items'">
                         <div>
-                            <p class="px-4 pt-3 text-xs font-bold text-gray-400 uppercase">Lost & Found</p>
+                            <p class="px-4 pt-3 text-xs font-bold text-gray-400 uppercase">Lost</p>
                             <template x-for="item in results.items" :key="item.id">
-                                <a :href="`/lost-found/${item.id}`" class="block px-4 py-2 text-sm hover:bg-indigo-50"
+                                <a :href="`/lost-found/${item.id}`"
+                                    class="block px-4 py-2 text-sm hover:bg-indigo-50 truncate"
                                     x-text="item.item_name"></a>
                             </template>
                         </div>
                     </template>
 
-                    <!-- Empty -->
                     <div x-show="noResults" class="px-4 py-3 text-sm text-gray-400">
                         No results found.
                     </div>
                 </div>
             </div>
-            <script>
-                function searchComponent() {
-                    return {
-                        query: '',
-                        open: false,
-                        showScope: false,
-
-                        // DEFAULT: students
-                        scope: 'students',
-                        scopes: [
-                            { value: 'students', label: 'People' },
-                            { value: 'groups', label: 'Groups' },
-                            { value: 'items', label: 'Lost' },
-                        ],
-
-                        results: {
-                            students: [],
-                            groups: [],
-                            items: [],
-                        },
-
-                        get scopeLabel() {
-                            return this.scopes.find(s => s.value === this.scope).label;
-                        },
-
-                        get noResults() {
-                            return this.open &&
-                                ((this.scope === 'students' && !this.results.students.length) ||
-                                    (this.scope === 'groups' && !this.results.groups.length) ||
-                                    (this.scope === 'items' && !this.results.items.length));
-                        },
-
-                        toggleScope() {
-                            this.showScope = !this.showScope;
-                        },
-
-                        selectScope(option) {
-                            this.scope = option.value;
-                            this.showScope = false;
-                            this.search();
-                        },
-
-                        search() {
-                            if (!this.query.trim()) {
-                                this.open = false;
-                                return;
-                            }
-
-                            fetch(`/search-results?query=${encodeURIComponent(this.query)}&type=${this.scope}`)
-                                .then(res => res.json())
-                                .then(data => {
-                                    this.results = data;
-                                    this.open = true;
-                                });
-                        }
-                    }
-                }
-            </script>
-
 
             {{-- Mobile Menu Button --}}
             <button @click="mobileMenuOpen = !mobileMenuOpen"
-                class="p-2.5 rounded-2xl text-slate-600 hover:bg-slate-100 transition active:scale-95 focus:outline-none">
+                class="shrink-0 p-2 rounded-2xl text-slate-600 hover:bg-slate-100 transition active:scale-95 focus:outline-none">
                 <div class="relative w-5 h-5">
                     <span
                         class="absolute block w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out"
@@ -363,6 +309,55 @@
                 </div>
             </button>
         </div>
+
+        <script>
+            function searchComponent() {
+                return {
+                    query: '',
+                    open: false,
+                    showScope: false,
+                    scope: 'students',
+                    scopes: [
+                        { value: 'students', label: 'People' },
+                        { value: 'groups', label: 'Groups' },
+                        { value: 'items', label: 'Lost' },
+                    ],
+                    results: { students: [], groups: [], items: [] },
+
+                    get scopeLabel() {
+                        return this.scopes.find(s => s.value === this.scope).label;
+                    },
+
+                    get noResults() {
+                        return this.open &&
+                            ((this.scope === 'students' && !this.results.students.length) ||
+                                (this.scope === 'groups' && !this.results.groups.length) ||
+                                (this.scope === 'items' && !this.results.items.length));
+                    },
+
+                    toggleScope() { this.showScope = !this.showScope; },
+
+                    selectScope(option) {
+                        this.scope = option.value;
+                        this.showScope = false;
+                        this.search();
+                    },
+
+                    search() {
+                        if (!this.query.trim()) {
+                            this.open = false;
+                            return;
+                        }
+                        fetch(`/search-results?query=${encodeURIComponent(this.query)}&type=${this.scope}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                this.results = data;
+                                this.open = true;
+                            });
+                    }
+                }
+            }
+        </script>
 
 
         <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300"
@@ -407,8 +402,8 @@
                 <a href="{{ route('dashboard.all.posts') }}"
                     class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('dashboard.all.posts') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path 
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
                         </path>
                     </svg>
                 </a>
@@ -434,7 +429,7 @@
 
                 {{-- Profile --}}
                 <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}"
-                    class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('posts.all') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
+                    class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
                     <img class="rounded-full object-cover w-8 h-8 border border-gray-200"
                         src="{{ Auth::user()->profile_photo_url }}" />
                 </a>

@@ -8,46 +8,44 @@
     </x-slot>
 
     <x-slot name="content">
-        <div class="max-w-xl text-sm text-gray-600">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
-        </div>
 
-        <div class="mt-5">
-            <x-danger-button wire:click="confirmUserDeletion" wire:loading.attr="disabled">
-                {{ __('Delete Account') }}
-            </x-danger-button>
-        </div>
+
+
 
         <!-- Delete User Confirmation Modal -->
-        <x-dialog-modal wire:model.live="confirmingUserDeletion">
-            <x-slot name="title">
-                {{ __('Delete Account') }}
-            </x-slot>
+        <div class="max-w-xl text-sm text-gray-600">
+            Once your account is deleted, all of its resources and data will be permanently deleted.
+        </div>
+        <div class="mt-5" x-data="{ open: false }">
+            <button @click="open = true"
+                class="bg-red-500 text-white px-4 py-2 rounded font-semibold text-xs uppercase tracking-widest hover:bg-red-600 transition">
+                Delete My Account
+            </button>
 
-            <x-slot name="content">
-                {{ __('Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+            <div x-show="open" style="display: none;" x-transition
+                class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Confirm Deletion</h2>
+                    <p class="text-gray-600 mb-6">
+                        Are you sure you want to delete your account? This action cannot be undone.
+                    </p>
+                    <div class="flex justify-end space-x-3">
+                        <button @click="open = false" type="button"
+                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-gray-800">
+                            Cancel
+                        </button>
 
-                <div class="mt-4" x-data="{}" x-on:confirming-delete-user.window="setTimeout(() => $refs.password.focus(), 250)">
-                    <x-input type="password" class="mt-1 block w-3/4"
-                                autocomplete="current-password"
-                                placeholder="{{ __('Password') }}"
-                                x-ref="password"
-                                wire:model="password"
-                                wire:keydown.enter="deleteUser" />
-
-                    <x-input-error for="password" class="mt-2" />
+                        <form method="POST" action="{{ route('account.delete') }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                                Yes, Delete
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </x-slot>
+            </div>
+        </div>
 
-            <x-slot name="footer">
-                <x-secondary-button wire:click="$toggle('confirmingUserDeletion')" wire:loading.attr="disabled">
-                    {{ __('Cancel') }}
-                </x-secondary-button>
-
-                <x-danger-button class="ms-3" wire:click="deleteUser" wire:loading.attr="disabled">
-                    {{ __('Delete Account') }}
-                </x-danger-button>
-            </x-slot>
-        </x-dialog-modal>
     </x-slot>
 </x-action-section>

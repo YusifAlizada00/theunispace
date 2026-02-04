@@ -50,6 +50,15 @@ Route::get('/auth/facebook/callback', [FacebookController::class, 'callback'])
     Route::get('/terms-of-service', [TermsOfServiceController::class, 'show'])->name('terms.show');
 Route::get('/privacy-policy', [PrivacyPolicyController::class, 'show'])->name('policy.show');
 
+
+// routes/web.php
+Route::middleware('auth')->delete('/delete-account', function () {
+    $user = Auth::user();
+    Auth::logout();
+    $user->delete();
+    return redirect('/')->with('status', 'Account deleted successfully.');
+})->name('account.delete');
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
 
