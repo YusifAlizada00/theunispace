@@ -24,7 +24,7 @@ class SupportController extends Controller
         $help = SupportRequests::create([
             'user_id' => auth()->id(),
             'type' => $data['type'],
-            'name' => $data['name'],   // <- add this
+            'name' => $data['name'],   
             'email' => $data['email'],
             'page' => $data['page'] ?? null,
             'solution_steps' => $data['solution_steps'] ?? null,

@@ -51,7 +51,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(CreatePostRequest $request)
+    public function store(CreatePostRequest $request)
     {
         $data = $request->validated();
         $data['user_id'] = auth()->id();
@@ -107,7 +107,7 @@ class PostController extends Controller
             Mail::to($recipient->email)->send(new NewFollowingPostEmail($user, $post, $url));
         }
 
-        return redirect()->route('dashboard.all.posts')->with('success', 'Goal/Post created successfully!');
+        return redirect()->route('dashboard.all.posts')->with('success', 'Post was created successfully!');
     }
 
     /**
@@ -136,59 +136,59 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-  public function update(UpdatePostRequest $request, Post $post)
-{
-    // 1. Validate and update basic post data (description, etc.)
-    $data = $request->validated();
-    $post->update($data);
+    public function update(UpdatePostRequest $request, Post $post)
+    {
+        // 1. Validate and update basic post data (description, etc.)
+        $data = $request->validated();
+        $post->update($data);
 
-    // 2. Handle media files
-    if ($request->hasFile('media')) {
-        
-        // OPTIONAL: Delete old media if you want to REPLACE them with the new upload
-        foreach ($post->media as $oldMedia) {
-            $oldPath = storage_path('app/public/' . $oldMedia->path);
-            if (file_exists($oldPath)) {
-                unlink($oldPath); // Remove physical file
+        // 2. Handle media files
+        if ($request->hasFile('media')) {
+
+            // OPTIONAL: Delete old media if you want to REPLACE them with the new upload
+            foreach ($post->media as $oldMedia) {
+                $oldPath = storage_path('app/public/' . $oldMedia->path);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath); // Remove physical file
+                }
+                $oldMedia->delete(); // Remove database record
             }
-            $oldMedia->delete(); // Remove database record
-        }
 
-        $manager = new ImageManager(new Driver());
-        $width = 500; 
+            $manager = new ImageManager(new Driver());
+            $width = 500;
 
-        foreach ($request->file('media') as $file) {
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '_' . uniqid() . '.' . $extension;
-            $path = 'posts/' . $filename;
+            foreach ($request->file('media') as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '_' . uniqid() . '.' . $extension;
+                $path = 'posts/' . $filename;
 
-            if (str_contains($file->getMimeType(), 'image')) {
-                // Process image
-                $img = $manager->read($file);
-                if ($img->width() > 1200) {
+                if (str_contains($file->getMimeType(), 'image')) {
+                    // Process image
+                    $img = $manager->read($file);
+                    if ($img->width() > 1200) {
                         $img->resize(1200, null); // keep height null to maintain aspect ratio
-                }                
-                $img->encode(new \Intervention\Image\Encoders\JpegEncoder(quality: 95));
-                $img->save(storage_path('app/public/' . $path));
-                $type = 'image';
-            } elseif (str_contains($file->getMimeType(), 'video')) {
-                // Save video
-                $file->move(storage_path('app/public/posts'), $filename);
-                $type = 'video';
-            } else {
-                continue;
+                    }
+                    $img->encode(new \Intervention\Image\Encoders\JpegEncoder(quality: 95));
+                    $img->save(storage_path('app/public/' . $path));
+                    $type = 'image';
+                } elseif (str_contains($file->getMimeType(), 'video')) {
+                    // Save video
+                    $file->move(storage_path('app/public/posts'), $filename);
+                    $type = 'video';
+                } else {
+                    continue;
+                }
+
+                // Save new media
+                $post->media()->create([
+                    'path' => $path,
+                    'type' => $type,
+                ]);
             }
-
-            // Save new media
-            $post->media()->create([
-                'path' => $path,
-                'type' => $type,
-            ]);
         }
-    }
 
-    return redirect()->route('dashboard.all.posts')->with('success', 'Post updated successfully!');
-}
+        return redirect()->route('dashboard.all.posts')->with('success', 'Post updated successfully!');
+    }
     /**
      * Remove the specified resource from storage.
      */

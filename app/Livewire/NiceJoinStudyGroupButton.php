@@ -23,14 +23,14 @@ class NiceJoinStudyGroupButton extends Component
     {
         $this->studyGroup->members()->attach(auth()->id());
         $this->isJoined = true;
-        //Mail::to($this->studyGroup->leader->email)->send(new \App\Mail\NewMemberJoinedStudyGroupMail(auth()->user(), $this->studyGroup));
+        Mail::to($this->studyGroup->leader->email)->send(new \App\Mail\NewMemberJoinedStudyGroupMail(auth()->user(), $this->studyGroup));
     }
 
     public function leaveGroup()
     {
         $this->studyGroup->members()->detach(auth()->id());
         $this->isJoined = false;
-        //Mail::to($this->studyGroup->leader->email)->send(new \App\Mail\MemberLeftStudyGroupMail(auth()->user(), $this->studyGroup));
+        Mail::to($this->studyGroup->leader->email)->send(new \App\Mail\MemberLeftStudyGroupMail(auth()->user(), $this->studyGroup));
     }
     public function render()
     {
