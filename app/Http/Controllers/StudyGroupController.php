@@ -33,7 +33,11 @@ class StudyGroupController extends Controller
 
         $studyGroups = $upcoming->concat($past);
 
-        $myGroups = auth()->user()->joinedGroups;
+        $myGroups = auth()->user()->joinedGroups()
+            ->whereRaw('(date > ?) OR (date = ? AND end_time >= ?)', [$today, $today, $time])
+            ->orderBy('date')->orderBy('start_time')
+            ->get();      
+              
         return view('study-groups', compact('studyGroups', 'myGroups'));
     }
 

@@ -21,9 +21,16 @@ class JoinStudyGroup extends Component
 
     public function joinGroup()
     {
-        $this->studyGroup->members()->attach(auth()->id());
-        $this->isJoined = true;
-        Mail::to($this->studyGroup->leader->email)->send(new \App\Mail\NewMemberJoinedStudyGroupMail(auth()->user(), $this->studyGroup));
+        try
+        {
+            $this->studyGroup->members()->attach(auth()->id());
+            $this->isJoined = true;
+            Mail::to($this->studyGroup->leader->email)->send(new \App\Mail\NewMemberJoinedStudyGroupMail(auth()->user(), $this->studyGroup));
+        } catch (\Illuminate\Database\QueryException $e) 
+        {
+            // User is already a member, ignore
+            $this->isJoined = true;
+        }
     }
     public function leaveGroup()
     {
