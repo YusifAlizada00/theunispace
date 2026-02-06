@@ -369,12 +369,6 @@
             <div class="mb-8">
                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 pl-1">Applications</h2>
                 <div class="grid grid-cols-2 gap-4">
-                    <a href="{{ route('search') }}"
-                        class="flex flex-col items-center justify-center p-5 rounded-[2rem] bg-white border border-gray-100 shadow-sm active:scale-95 transition-all duration-200 hover:border-indigo-200 hover:shadow-indigo-100/50">
-                        <div class="p-3 bg-indigo-50 rounded-2xl mb-3 text-indigo-600"><img
-                                src="{{ asset('icons/search.png') }}" class="w-7 h-7" alt="Groups"></div>
-                        <span class="font-bold text-slate-700 text-sm">Search</span>
-                    </a>
                     <a href="{{ route('lost-found') }}"
                         class="flex flex-col items-center justify-center p-5 rounded-[2rem] bg-white border border-gray-100 shadow-sm active:scale-95 transition-all duration-200 hover:border-orange-200 hover:shadow-orange-100/50">
                         <div class="p-3 bg-orange-50 rounded-2xl mb-3 text-orange-600"><img

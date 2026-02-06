@@ -12,7 +12,27 @@ class StudyGroupController extends Controller
 {
     public function index()
     {
-        $studyGroups = StudyGroup::latest()->get();
+        $today = now()->toDateString();
+        $time = now()->toTimeString();
+
+        // 1. Get UPCOMING sessions
+        // Logic: Date is in future OR (Date is today AND Time is not over yet)
+        // Sort: ASC (So the one starting nearest to now is at the top)
+        $upcoming = StudyGroup::whereRaw('(date > ?) OR (date = ? AND end_time >= ?)', [$today, $today, $time])
+            ->orderBy('date', 'asc')
+            ->orderBy('start_time', 'asc')
+            ->get();
+
+        // 2. Get PAST sessions
+        // Logic: Date is in past OR (Date is today AND Time is already over)
+        // Sort: DESC (So the one that just finished is at the top of the history list)
+        $past = StudyGroup::whereRaw('(date < ?) OR (date = ? AND end_time < ?)', [$today, $today, $time])
+            ->orderBy('date', 'desc')
+            ->orderBy('start_time', 'desc')
+            ->get();
+
+        $studyGroups = $upcoming->concat($past);
+
         $myGroups = auth()->user()->joinedGroups;
         return view('study-groups', compact('studyGroups', 'myGroups'));
     }

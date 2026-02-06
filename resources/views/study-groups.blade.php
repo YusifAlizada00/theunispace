@@ -70,45 +70,61 @@
                                         {{ $studyGroup->group_name }}
                                     </span>
                                 </a>
+                                <div class="flex items-center gap-2 sm:gap-3">
+                                    @if($studyGroup->date->isFuture())
+                                        <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold bg-emerald-50 text-emerald-600 border border-emerald-100 ring-1 ring-emerald-500/10">
+                                            <span class="relative flex h-2 w-2">
+                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                            </span>
+                                            <span class="uppercase tracking-wider text-[10px] sm:text-xs">Upcoming</span>
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-50 text-red-500 border border-red-100">
+                                            <span class="h-1.5 w-1.5 rounded-full bg-red-400"></span>
+                                            <span class="uppercase tracking-wider text-[10px] sm:text-xs">Past</span>
+                                        </span>
+                                    @endif
 
-                                <div x-data="{ open: false }" class="relative mt-2">
-                                    <button @click="open = !open" class="text-gray-300 hover:text-gray-600 transition">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                  d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
-                                        </svg>
-                                    </button>
-
-                                    <ul x-show="open" x-cloak @click.away="open = false"
-                                        class="absolute right-0 mt-2 w-max min-w-[100px] bg-white border rounded shadow-lg z-50 overflow-hidden whitespace-nowrap"
-                                        role="menu">
-
-                                        <input type="text" id="copyInput-{{ $studyGroup->id }}" value="{{ url('study-groups/' . $studyGroup->slug) }}" class="hidden">
-
-                                        <button onclick="copyToClipboard({{ $studyGroup->id }})"
-                                                class="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm">
-                                            <img src="{{ asset('icons/copy.png') }}" class="w-4 h-4">
-                                            <span>Copy Link</span>
+                                    <div x-data="{ open: false }" class="relative mt-2">
+                                        <button @click="open = !open" class="text-gray-300 hover:text-gray-600 transition">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+                                            </svg>
                                         </button>
 
-                                        @if (Auth::user()->id === $studyGroup->leader->id)
-                                            <a href="{{ route('study-groups.edit', $studyGroup->slug) }}"
-                                               class="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm">
-                                                <img src="{{ asset('icons/edit.png') }}" class="w-4 h-4">
-                                                <span>Edit Group</span>
-                                            </a>
+                                        <ul x-show="open" x-cloak @click.away="open = false"
+                                            class="absolute right-0 mt-2 w-max min-w-[100px] bg-white border rounded shadow-lg z-50 overflow-hidden whitespace-nowrap"
+                                            role="menu">
 
-                                            <form action="{{ route('study-group.destroy', $studyGroup->slug) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" onclick="deleteReport()"
-                                                        class="flex items-center gap-2 w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 text-sm">
-                                                    <img src="{{ asset('icons/delete.png') }}" class="w-4 h-4">
-                                                    <span>Delete</span>
-                                                </button>
-                                            </form>
-                                        @endif
-                                    </ul>
+                                            <input type="text" id="copyInput-{{ $studyGroup->id }}" value="{{ url('study-groups/' . $studyGroup->slug) }}" class="hidden">
+
+                                            <button onclick="copyToClipboard({{ $studyGroup->id }})"
+                                                    class="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm">
+                                                <img src="{{ asset('icons/copy.png') }}" class="w-4 h-4">
+                                                <span>Copy Link</span>
+                                            </button>
+
+                                            @if (Auth::user()->id === $studyGroup->leader->id)
+                                                <a href="{{ route('study-groups.edit', $studyGroup->slug) }}"
+                                                class="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm">
+                                                    <img src="{{ asset('icons/edit.png') }}" class="w-4 h-4">
+                                                    <span>Edit Group</span>
+                                                </a>
+
+                                                <form action="{{ route('study-group.destroy', $studyGroup->slug) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onclick="deleteReport()"
+                                                            class="flex items-center gap-2 w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 text-sm">
+                                                        <img src="{{ asset('icons/delete.png') }}" class="w-4 h-4">
+                                                        <span>Delete</span>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
