@@ -2,7 +2,7 @@
     
     <button type="button" @click="showReportModal = true"
         class="gap-2 flex flex-row w-full text-left px-4 py-2 text-red-500 hover:bg-red-200">
-        <img src="{{ asset('icons/report.png') }}" alt="Report" class="w-6 h-6 -ml-3">
+        <img src="{{ asset('icons/report.png') }}" loading="lazy" alt="Report" class="w-6 h-6 -ml-3">
         <span class="-ml-1">Report</span>
     </button>
 

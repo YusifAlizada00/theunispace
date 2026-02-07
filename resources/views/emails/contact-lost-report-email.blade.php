@@ -24,7 +24,7 @@
             @foreach($contact->images_found as $image)
 
                 {{-- FIX: Use $message->embed() with the absolute server path --}}
-                <img src="{{ $message->embed(storage_path('app/public/' . $image)) }}" alt="Found Image"
+                <img src="{{ $message->embed(storage_path('app/public/' . $image)) }}" alt="Found Image" loading="lazy"
                     style="max-width: 100%; height: auto; margin-bottom: 10px; border-radius: 4px;">
 
             @endforeach

@@ -62,7 +62,7 @@
             {{-- Logo Area --}}
             <div class=" md:-ml-1 -mr-9 px-0 py-0 mb-4 -mt-4">
                 <a href="{{ route('dashboard.all.posts') }}" class="whitespace-nowrap flex items-center gap-2">
-                    <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}" alt="" class=" w-30 h-16">
+                    <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}" alt="TheUniSpace Logo" loading="lazy" class=" w-30 h-16">
                 </a>
             </div>
 
@@ -76,7 +76,7 @@
                         : 'group flex items-center gap-3 w-full rounded-2xl hover:bg-gray-300 hover:shadow-md border border-transparent hover:border-gray-100 p-3 transition-all duration-200'}}">
                                 <div class="w-10 h-10 flex-shrink-0 relative">
                                     <img class="rounded-full object-cover w-full h-full border-2 border-white shadow-sm group-hover:scale-105 transition-transform duration-300 -ml-2"
-                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}">
+                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" loading="lazy">
                                     <div
                                         class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full">
                                     </div>
@@ -120,7 +120,7 @@
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('search', 'search.results') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
-                            <img src="{{ asset('icons/search.png') }}" alt="Search"
+                            <img src="{{ asset('icons/search.png') }}" alt="Search" loading="lazy"
                                 class="w-6 h-6 transition-transform duration-300
                                      {{ request()->routeIs('search', 'search.results') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0 group-hover:scale-110' }}">
                         </div>
@@ -130,11 +130,11 @@
                     {{-- Study Groups --}}
                     <a href="{{ route('study-groups') }}"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
-                                  {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
+                                  {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit', 'study-groups.create') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
-                            <img src="{{ asset('icons/group.png') }}" alt="Study Groups"
+                            <img src="{{ asset('icons/group.png') }}" alt="Study Groups" loading="lazy"
                                 class="w-6 h-6 transition-transform duration-300 group-hover:scale-110
-                                     {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
+                                     {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit', 'study-groups.create') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
                         </div>
                         <span class="font-bold text-sm min-w-[90px]">Study Groups</span>
                     </a>
@@ -144,7 +144,7 @@
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('lost-found', 'contact-form', 'report-lost', 'lost-report.show') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
-                            <img src="{{ asset('icons/lost.png') }}" alt="Lost"
+                            <img src="{{ asset('icons/lost.png') }}" alt="Lost" loading="lazy"
                                 class="w-6 h-6 transition-transform duration-300 group-hover:scale-110
                                      {{ request()->routeIs('lost-found', 'contact-form', 'report-lost', 'lost-report.show') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
                         </div>
@@ -156,7 +156,7 @@
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('map.show') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
-                            <img src="{{ asset('icons/car-parking.png') }}" alt="Parking"
+                            <img src="{{ asset('icons/car-parking.png') }}" alt="Parking" loading="lazy"
                                 class="w-6 h-6 transition-transform duration-300 group-hover:scale-110
                                      {{ request()->routeIs('map/show') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
                         </div>
@@ -173,7 +173,7 @@
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('help-support') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
-                            <img src="{{ asset('icons/help.png') }}" alt="Help"
+                            <img src="{{ asset('icons/help.png') }}" alt="Help" loading="lazy"
                                 class="w-6 h-6 transition-transform duration-300 group-hover:scale-110
                                      {{ request()->routeIs('help-support') ? 'brightness-200 grayscale' : 'grayscale group-hover:grayscale-0' }}">
                         </div>
@@ -213,8 +213,8 @@
             <div class="shrink-0 flex items-center relative z-50 pr-4">
                 <a href="/" class="block">
                     <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}" 
-                        alt="TheUniSpace Logo"
-                        class="h-10 w-auto object-contain -mt-4">
+                        alt="TheUniSpace Logo" loading="lazy"
+                        class="h-10 w-auto object-contain -mt-3">
                 </a>
             </div>
 
@@ -372,7 +372,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <a href="{{ route('lost-found') }}"
                         class="flex flex-col items-center justify-center p-5 rounded-[2rem] bg-white border border-gray-100 shadow-sm active:scale-95 transition-all duration-200 hover:border-orange-200 hover:shadow-orange-100/50">
-                        <div class="p-3 bg-orange-50 rounded-2xl mb-3 text-orange-600"><img
+                        <div class="p-3 bg-orange-50 rounded-2xl mb-3 text-orange-600"><img loading="lazy"
                                 src="{{ asset('icons/lost.png') }}" class="w-7 h-7" alt="Lost"></div>
                         <span class="font-bold text-slate-700 text-sm">Lost & Found</span>
                     </a>
@@ -381,7 +381,7 @@
                         {{-- Support --}}
                         <a href="{{ route('help-support', ['name' => Auth::user()->slug]) }}"
                             class="flex flex-col items-center justify-center p-5 rounded-[2rem] bg-white border border-gray-100 shadow-sm active:scale-95 transition-all duration-200 hover:border-purple-200 hover:shadow-purple-100/50">
-                            <div class="p-3 bg-purple-50 rounded-2xl mb-3 text-purple-600"><img
+                            <div class="p-3 bg-purple-50 rounded-2xl mb-3 text-purple-600"><img loading="eager"
                                     src="{{ asset('icons/help.png') }}" class="w-7 h-7" alt="Help"></div>
                             <span class="font-bold text-slate-700 text-sm">Support</span>
                         </a>
@@ -404,28 +404,28 @@
                 </a>
 
                 <a href="{{ route('study-groups') }}"
-                    class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('study-groups') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
-                    <img src="{{ asset('icons/group.png') }}" class="w-7 h-7">
+                    class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit', 'study-groups.create') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
+                    <img src="{{ asset('icons/group.png') }}" class="w-7 h-7" alt="Study Groups" loading="lazy">
                 </a>
 
                 {{-- CREATE BUTTON (Floating Up) --}}
                 <div class="-mt-12">
                     <a href="{{ route('post.create') }}"
                         class="flex items-center justify-center w-16 h-16 bg-slate-900 rounded-full shadow-xl shadow-slate-900/40 border-[4px] border-white transition-transform duration-300 active:scale-90 hover:scale-110 hover:rotate-90">
-                        <img src="{{ asset('icons/add.png') }}" class="w-7 h-7 invert brightness-0">
+                        <img src="{{ asset('icons/add.png') }}" class="w-7 h-7 invert brightness-0" alt="Add Icon" loading="lazy">
                     </a>
                 </div>
 
                 {{-- Parking --}}
                 <a href="{{ route('map.show') }}"
                     class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('map.show') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
-                    <img src="{{ asset('icons/car-parking.png') }}" class="w-7 h-7">
+                    <img src="{{ asset('icons/car-parking.png') }}" class="w-7 h-7" alt="Parking Icon" loading="lazy">
                 </a>
 
                 {{-- Profile --}}
                 <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}"
                     class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
-                    <img class="rounded-full object-cover w-8 h-8 border border-gray-200"
+                    <img class="rounded-full object-cover w-8 h-8 border border-gray-200" loading="lazy" alt="Photo"
                         src="{{ Auth::user()->profile_photo_url }}" />
                 </a>
             @endauth

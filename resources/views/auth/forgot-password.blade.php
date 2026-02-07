@@ -15,7 +15,7 @@
 
                 {{-- Logo --}}
                 <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}"
-                     alt="TheUniSpace Logo"
+                     alt="TheUniSpace Logo" loading="lazy"
                      class="relative z-10 w-40 h-40 object-contain transition-transform duration-500 hover:scale-110 drop-shadow-xl">
                 
                 <h2 class="mt-6 text-2xl font-black text-gray-800 relative z-10 tracking-tight text-center">

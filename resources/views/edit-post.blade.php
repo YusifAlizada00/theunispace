@@ -48,7 +48,7 @@
                     <div x-show="files.length === 0">
                         <label class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 transition">
                             <input type="file" name="media[]" class="hidden" multiple accept="image/*,video/*" @change="fileChosen">
-                            <img src="{{ asset('icons/add.png') }}" class="w-10 h-10 mb-2 opacity-50" alt="Add">
+                            <img src="{{ asset('icons/add.png') }}" class="w-10 h-10 mb-2 opacity-50" alt="Add" loading="lazy">
                             <p class="text-sm text-gray-500 font-bold">Tap to upload photos or videos</p>
                         </label>
                     </div>
@@ -62,7 +62,7 @@
                                 </template>
 
                                 <template x-if="file.type.startsWith('image')">
-                                    <img :src="file.url" class="w-full h-full object-cover">
+                                    <img :src="file.url" class="w-full h-full object-cover" alt="Preview" loading="lazy">
                                 </template>
 
                                 <template x-if="file.type.startsWith('video')">

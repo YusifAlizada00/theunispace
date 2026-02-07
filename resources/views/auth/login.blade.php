@@ -12,7 +12,7 @@
 
                 <div class="relative z-10 text-center">
                     <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}"
-                         class="w-44 h-44 mx-auto object-contain drop-shadow-xl"
+                         class="w-44 h-44 mx-auto object-contain drop-shadow-xl" loading="lazy"
                          alt="TheUniSpace Logo">
                     <p class="mt-6 text-gray-500 font-medium">
                         Track your goals,<br>achieve your dreams.
@@ -26,7 +26,7 @@
                 {{-- Mobile Logo --}}
                 <div class="md:hidden text-center mb-6">
                     <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}"
-                         class="w-24 h-24 mx-auto object-contain"
+                         class="w-24 h-24 mx-auto object-contain" loading="lazy"
                          alt="Logo">
                 </div>
 
@@ -52,13 +52,13 @@
                 <div class="space-y-3">
                     <a href="{{ route('google.redirect') }}"
                        class="w-full flex items-center justify-center gap-3 py-3 rounded-xl border border-gray-200 font-semibold text-gray-700 hover:bg-gray-50 transition">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google Icon" loading="lazy">
                         Continue with Google
                     </a>
 
                     <a href="{{ route('facebook.redirect') }}"
                        class="w-full flex items-center justify-center gap-3 py-3 rounded-xl font-semibold text-white bg-[#1877F2] hover:bg-[#166FE5] transition">
-                        <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" class="w-5 h-5">
+                        <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" class="w-5 h-5" alt="Facebook Icon" loading="lazy">
                         Continue with Facebook
                     </a>
                 </div>

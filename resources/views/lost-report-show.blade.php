@@ -29,7 +29,7 @@
                                 <div class="swiper-wrapper">
                                     @foreach($reportLost->images_lost as $image)
                                         <div class="swiper-slide flex items-center justify-center h-80 md:h-96">
-                                            <img src="{{ asset('storage/' . $image) }}" 
+                                            <img src="{{ asset('storage/' . $image) }}" loading="lazy"
                                                  class="max-w-full max-h-full object-contain"
                                                  alt="{{ $reportLost->item_name }}">
                                         </div>

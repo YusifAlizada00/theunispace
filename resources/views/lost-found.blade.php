@@ -45,7 +45,7 @@
                             {{-- Image Area --}}
                             <a href="{{ route('lost-report.show', $reported_item->slug) }}" class="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 block">
                                 @if($reported_item->images_lost && count($reported_item->images_lost) > 0)
-                                    <img src="{{ asset('storage/' . $reported_item->images_lost[0]) }}" alt="Lost Item"
+                                    <img src="{{ asset('storage/' . $reported_item->images_lost[0]) }}" alt="Lost Item" loading="lazy"
                                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                 @else
                                     <div class="w-full h-full flex flex-col items-center justify-center bg-slate-50 text-slate-300">

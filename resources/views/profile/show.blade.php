@@ -11,14 +11,14 @@
                                 <div class="relative mb-4">
                                     @if (Auth::check() && $user->id === Auth::id())
                                         <a href="{{ route('profile.edit', ['name' => Auth::user()->slug]) }}" class="block relative group/avatar">
-                                            <img src="{{ $user->profile_photo_url }}" alt="Profile"
+                                            <img src="{{ $user->profile_photo_url }}" alt="Profile" loading="lazy"
                                                 class="w-32 h-32 sm:w-48 sm:h-48 rounded-2xl object-cover shadow-lg border-4 border-white transform transition duration-300 group-hover/avatar:scale-105 group-hover/avatar:rotate-2">
                                             <div class="absolute inset-0 bg-black/30 rounded-2xl flex items-center justify-center opacity-0 group-hover/avatar:opacity-100 transition duration-300 backdrop-blur-[2px]">
                                                 <span class="text-white text-xs font-bold uppercase tracking-wider">Edit</span>
                                             </div>
                                         </a>
                                     @else
-                                        <img src="{{ $user->profile_photo_url }}" alt="Profile"
+                                        <img src="{{ $user->profile_photo_url }}" alt="Profile" loading="lazy"
                                             class="w-32 h-32 sm:w-48 sm:h-48 rounded-2xl object-cover shadow-lg border-4 border-white">
                                     @endif
                                 </div>
@@ -26,7 +26,7 @@
                                 <h1 class="text-2xl font-black text-gray-900 tracking-tight">
                                     {{ $user->name }}
                                     @if($user->is_admin)
-                                        <img src="{{ asset('icons/check.png') }}" alt="Verified" class="h-5 w-5 inline-block ml-1 align-top relative top-1">
+                                        <img src="{{ asset('icons/check.png') }}" loading="lazy" alt="Verified" class="h-5 w-5 inline-block ml-1 align-top relative top-1">
                                     @endif
                                 </h1>
                                 <p class="text-sm font-medium text-gray-400 mt-1">{{ $user->major ?? null }}</p>
@@ -210,7 +210,7 @@
                                             <a href="{{ route('single-post', ['slug' => $post->slug]) }}" class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100">
                                                 @foreach($post->media as $media)
                                                     @if($media->type === 'image')
-                                                        <img src="{{ asset('storage/' . $media->path) }}" class="w-full h-full object-cover" alt="Post Image">
+                                                        <img src="{{ asset('storage/' . $media->path) }}" loading="lazy" class="w-full h-full object-cover" alt="Post Image">
                                                     @elseif($media->type === 'video')
                                                         <video class="w-full h-full object-cover">
                                                             <source src="{{ asset('storage/' . $media->path) }}" type="video/mp4">
@@ -295,7 +295,7 @@
                                             
                                             <a href="{{ route('lost-report.show', $lostItem->slug) }}" class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100">
                                                 @foreach($lostItem->images_lost as $images_lost)
-                                                        <img src="{{ asset('storage/' . $images_lost) }}" class="w-full h-full object-cover" alt="Lost Image">
+                                                        <img src="{{ asset('storage/' . $images_lost) }}" loading="lazy" class="w-full h-full object-cover" alt="Lost Image">
                                                           <div class="absolute top-4 left-4">
                                                     <span id="badge-{{ $lostItem->id }}" 
                                                         class="status-badge px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest backdrop-blur-md shadow-lg transition-colors duration-300

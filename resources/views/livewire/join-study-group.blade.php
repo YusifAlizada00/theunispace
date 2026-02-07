@@ -2,12 +2,12 @@
 
     <div class="flex items-center -space-x-2 overflow-hidden">
         
-        <img src="{{ $studyGroup->leader->profile_photo_url }}" 
+        <img src="{{ $studyGroup->leader->profile_photo_url }}"  alt="Photo" loading="lazy"
              class="inline-block h-8 w-8 rounded-full ring-2 ring-white z-10" 
              title="Leader">
 
         @foreach ($studyGroup->members->where('id', '!=', $studyGroup->leader_id)->take(3) as $user)
-            <img src="{{ $user->profile_photo_url }}" 
+            <img src="{{ $user->profile_photo_url }}" alt="Photo" loading="lazy"
                  class="inline-block h-8 w-8 rounded-full ring-2 ring-white" title="Member">
         @endforeach
 

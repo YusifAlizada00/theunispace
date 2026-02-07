@@ -118,14 +118,14 @@
 
                                             <button onclick="copyToClipboard({{ $studyGroup->id }})"
                                                 class="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm">
-                                                <img src="{{ asset('icons/copy.png') }}" class="w-4 h-4">
+                                                <img src="{{ asset('icons/copy.png') }}" class="w-4 h-4" alt="Copy Icon" loading="lazy">
                                                 <span>Copy Link</span>
                                             </button>
 
                                             @if (Auth::user()->id === $studyGroup->leader->id)
                                                 <a href="{{ route('study-groups.edit', $studyGroup->slug) }}"
                                                     class="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 text-sm">
-                                                    <img src="{{ asset('icons/edit.png') }}" class="w-4 h-4">
+                                                    <img src="{{ asset('icons/edit.png') }}" class="w-4 h-4" alt="Edit Icon" loading="lazy">
                                                     <span>Edit Group</span>
                                                 </a>
 
@@ -135,7 +135,7 @@
                                                     @method('DELETE')
                                                     <button type="submit" onclick="deleteReport()"
                                                         class="flex items-center gap-2 w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 text-sm">
-                                                        <img src="{{ asset('icons/delete.png') }}" class="w-4 h-4">
+                                                        <img src="{{ asset('icons/delete.png') }}" class="w-4 h-4" alt="Delete Icon" loading="lazy">
                                                         <span>Delete</span>
                                                     </button>
                                                 </form>
@@ -155,7 +155,7 @@
                             <div class="flex items-center gap-2 mb-6">
                                 <div
                                     class="w-6 h-6 rounded-full bg-slate-100 border border-white shadow-sm overflow-hidden">
-                                    <img src="{{ $studyGroup->leader->profile_photo_url }}"
+                                    <img src="{{ $studyGroup->leader->profile_photo_url }}" alt="Photo" loading="lazy"
                                         class="w-full h-full object-cover">
                                 </div>
                                 <span class="text-sm text-slate-500 font-medium truncate">

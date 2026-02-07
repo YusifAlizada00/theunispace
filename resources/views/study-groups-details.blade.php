@@ -137,7 +137,7 @@
                                     <div class="relative">
                                         <a href="{{ route('posts.all', ['name' => $studyGroup->leader->slug]) }}" class="flex items-center gap-3">
                                             <img class="w-12 h-12 rounded-full object-cover ring-2 ring-indigo-200"
-                                                src="{{ $studyGroup->leader->profile_photo_url }}"
+                                                src="{{ $studyGroup->leader->profile_photo_url }}" loading="lazy"
                                                 alt="{{ $studyGroup->leader->name }}">
                                         </a>
                                         <div
@@ -161,7 +161,7 @@
 
                                         <div class="flex items-center gap-3">
                                             <a href="{{ route('posts.all', ['name' => $member->slug]) }}" class="flex items-center gap-3">
-                                                <img class="w-10 h-10 rounded-full object-cover ring-2 ring-gray-100"
+                                                <img class="w-10 h-10 rounded-full object-cover ring-2 ring-gray-100" loading="lazy"
                                                     src="{{ $member->profile_photo_url }}" alt="{{ $member->name }}">
                                             </a>
 
@@ -197,7 +197,7 @@
                         </div>
 
                         <div class="relative -mt-8 mb-3">
-                            <img src="{{ asset($studyGroup->leader->profile_photo_url) }}"
+                            <img src="{{ asset($studyGroup->leader->profile_photo_url) }}" loading="lazy" alt="Photo"
                                 class="w-20 h-20 rounded-full border-4 border-white shadow-md mx-auto">
                         </div>
 

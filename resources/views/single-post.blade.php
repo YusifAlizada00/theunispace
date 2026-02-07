@@ -71,7 +71,7 @@
                             {{-- Avatar --}}
                             <a href="{{ route('posts.all', ['name' => $singlePost->user->slug]) }}" class="relative block shrink-0">
                                 <img src="{{ $singlePost->user->profile_photo_url }}" 
-                                     alt="Profile"
+                                     alt="Profile" loading="eager"
                                      class="w-12 h-12 rounded-full object-cover ring-4 ring-slate-50 transition-transform hover:scale-105">
                             </a>
 
@@ -84,7 +84,7 @@
                                             {{ $singlePost->user->name }}
                                         </a>
                                         @if($singlePost->user->is_admin)
-                                            <img src="{{ asset('icons/check.png') }}" alt="Verified" class="h-4 w-4">
+                                            <img src="{{ asset('icons/check.png') }}" alt="Verified" class="h-4 w-4" loading="lazy">
                                         @endif
                                     </div>
                                     <div class="flex items-center gap-1.5 text-xs text-slate-400 font-medium mt-0.5">
@@ -99,7 +99,7 @@
                         {{-- 3-Dot Menu --}}
                         <div x-data="{ open: false }" class="relative">
                             <button @click="open = !open" class="p-2 -mr-2 text-slate-300 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
-                                <img src="{{ asset('icons/dots.png') }}" alt="Dots" class="w-6 h-6 opacity-60 hover:opacity-100">
+                                <img src="{{ asset('icons/dots.png') }}" alt="Dots" class="w-6 h-6 opacity-60 hover:opacity-100" loading="lazy">
                             </button>
 
                             {{-- Dropdown --}}
@@ -112,20 +112,20 @@
                                 <input type="text" id="copyInput-{{ $singlePost->id }}" value="{{ url('dashboard/post/' . $singlePost->slug) }}" class="hidden">
 
                                 <button onclick="copyToClipboard({{ $singlePost->id }})" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                    <img src="{{ asset('icons/copy.png') }}" alt="Copy" class="w-5 h-5 opacity-70">
+                                    <img src="{{ asset('icons/copy.png') }}" alt="Copy" class="w-5 h-5 opacity-70" loading="lazy">
                                     <span>Copy Link</span>
                                 </button>
 
                                 @if (Auth::user()->id === $singlePost->user_id)
                                     <a href="{{ route('post.edit', ['post' => $singlePost->slug]) }}" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                        <img src="{{ asset('icons/edit.png') }}" alt="Edit" class="w-5 h-5 opacity-70">
+                                        <img src="{{ asset('icons/edit.png') }}" alt="Edit" class="w-5 h-5 opacity-70" loading="lazy">
                                         <span>Edit</span>
                                     </a>
 
                                     <form action="{{ route('post.destroy', ['post' => $singlePost->slug]) }}" method="POST">
                                         @csrf @method('DELETE')
                                         <button type="submit" onclick="deleteGoal()" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-rose-500 hover:bg-rose-50 transition-colors">
-                                            <img src="{{ asset('icons/delete.png') }}" alt="Delete" class="w-5 h-5 opacity-70">
+                                            <img src="{{ asset('icons/delete.png') }}" alt="Delete" class="w-5 h-5 opacity-70" loading="lazy">
                                             <span>Delete</span>
                                         </button>
                                     </form>
@@ -161,7 +161,7 @@
                                     @foreach($singlePost->media as $media)
                                         <div class="swiper-slide flex items-center justify-center bg-slate-100">
                                             @if($media->type === 'image')
-                                                <img src="{{ asset('storage/' . $media->path) }}" class="w-full h-full object-cover">
+                                                <img src="{{ asset('storage/' . $media->path) }}" class="w-full h-full object-cover" alt="Image" loading="lazy">
                                             @elseif($media->type === 'video')
                                                 <video controls class="w-full h-full object-contain">
                                                     <source src="{{ asset('storage/' . $media->path) }}" type="video/mp4">

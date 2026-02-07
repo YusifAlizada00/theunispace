@@ -41,7 +41,7 @@
                         <div class="flex items-center gap-3">
                             {{-- Avatar with Ring --}}
                             <div class="relative">
-                                <img src="{{ $post->user->profile_photo_url }}" class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-50 border border-white shadow-sm">
+                                <img src="{{ $post->user->profile_photo_url }}" alt="Photo" loading="lazy" class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-50 border border-white shadow-sm">
                             </div>
                             
                             {{-- User Meta --}}
@@ -50,7 +50,7 @@
                                    class="block font-bold text-slate-900 hover:text-indigo-600 transition-colors text-[15px]">
                                     {{ $post->user->name }}
                                     @if($post->user->is_admin)
-                                        <img src="{{ asset('icons/check.png') }}" alt="Verified" class="h-5 w-5 inline-block ml-1 align-top relative top-0">
+                                        <img src="{{ asset('icons/check.png') }}" loading="lazy" alt="Verified" class="h-5 w-5 inline-block ml-1 align-top relative top-0">
                                     @endif
                                 </a>
                                 <div class="flex items-center gap-1.5 text-xs text-slate-400 font-medium mt-0.5">
@@ -126,7 +126,7 @@
                                     @foreach($post->media as $media)
                                         <div class="swiper-slide flex items-center justify-center bg-black/5">
                                             @if($media->type === 'image')
-                                                <img src="{{ asset('storage/' . $media->path) }}" class="w-full h-full object-cover" loading="lazy">
+                                                <img src="{{ asset('storage/' . $media->path) }}" alt="Post" class="w-full h-full object-cover" loading="lazy">
                                             @elseif($media->type === 'video')
                                                 <video controls class="w-full h-full object-contain">
                                                     <source src="{{ asset('storage/' . $media->path) }}" type="video/mp4">

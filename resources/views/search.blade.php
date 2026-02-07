@@ -68,13 +68,13 @@
                         @foreach ($users as $user)
                             <a href="{{ route('posts.all', ['name' => $user->slug]) }}"
                                 class="flex items-center gap-4 px-5 py-3 hover:bg-indigo-50 transition-colors group">
-                                <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}"
+                                <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" loading="lazy"
                                     class="w-10 h-10 rounded-full object-cover border border-gray-200">
                                 <div class="flex flex-col">
                                     <div class="flex items-center gap-1">
                                         <span class="font-semibold text-gray-800 text-sm">{{ $user->name }}</span>
                                         @if($user->is_admin)
-                                            <img src="{{ asset('icons/check.png') }}" class="h-3 w-3">
+                                            <img src="{{ asset('icons/check.png') }}" class="h-3 w-3" alt="Check Icon" loading="lazy">
                                         @endif
                                     </div>
                                     <span class="text-xs text-gray-400">{{ '@' . $user->slug }}</span>
