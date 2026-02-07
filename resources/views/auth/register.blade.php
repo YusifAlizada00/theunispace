@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="relative z-10 text-center">
-                    <img src="{{ asset('webImages/theunispace-logo.png') }}"
+                    <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}"
                          class="w-40 h-40 mx-auto object-contain drop-shadow-xl"
                          alt="TheUniSpace Logo">
 
@@ -29,7 +29,7 @@
                 
                 {{-- Mobile Logo --}}
                 <div class="md:hidden text-center mb-6">
-                    <img src="{{ asset('webImages/theunispace-logo.png') }}"
+                    <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}"
                          class="w-24 h-24 mx-auto object-contain"
                          alt="TheUniSpace Logo">
                 </div>

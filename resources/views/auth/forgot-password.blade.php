@@ -14,7 +14,7 @@
                 </div>
 
                 {{-- Logo --}}
-                <img src="{{ asset('webImages/theunispace-logo.png') }}"
+                <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}"
                      alt="TheUniSpace Logo"
                      class="relative z-10 w-40 h-40 object-contain transition-transform duration-500 hover:scale-110 drop-shadow-xl">
                 

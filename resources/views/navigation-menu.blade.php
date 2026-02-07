@@ -60,14 +60,14 @@
             class="fixed h-full bg-white/95 backdrop-blur-2xl px-4 xl:w-[220px] w-[80px] border-r border-gray-100 shadow-[4px_0_24px_rgba(0,0,0,0.02)] flex flex-col pt-6 pb-6 z-50">
 
             {{-- Logo Area --}}
-            <div class=" md:-ml-8 -mr-9 px-0 py-0 mb-2 -mt-4">
-                <a href="{{ route('dashboard.all.posts') }}" class="-mb-6 whitespace-nowrap flex items-center gap-2">
-                    <img src="{{ asset('webImages/theunispace-logo.png') }}" alt="" class=" w-30 h-16">
+            <div class=" md:-ml-1 -mr-9 px-0 py-0 mb-4 -mt-4">
+                <a href="{{ route('dashboard.all.posts') }}" class="whitespace-nowrap flex items-center gap-2">
+                    <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}" alt="" class=" w-30 h-16">
                 </a>
             </div>
 
             {{-- Profile --}}
-            <div class="mb-6">
+            <div class="mb-4">
                 @auth
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}"
@@ -208,13 +208,14 @@
     </div>
 
     <div class="md:hidden">
-        <div
-            class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-2 sm:px-4 py-3 flex items-center justify-between gap-2 transition-all duration-300 shadow-sm">
+        <div class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-2 sm:px-4 py-3 flex items-center justify-between gap-4 sm:gap-8 transition-all duration-300 shadow-sm">
 
-            {{-- Logo --}}
-            <div class="shrink-0">
-                <img src="{{ asset('webImages/theunispace-logo.png') }}" alt="TheUniSpace Logo"
-                    class="w-24  h-24 object-contain -mt-3 -mb-8 -ml-4 sm:-ml-4">
+            <div class="shrink-0 flex items-center relative z-50 pr-4">
+                <a href="/" class="block">
+                    <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}" 
+                        alt="TheUniSpace Logo"
+                        class="h-10 w-auto object-contain -mt-4">
+                </a>
             </div>
 
             {{-- Search Input (Flexible Width) --}}
