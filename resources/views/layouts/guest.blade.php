@@ -8,10 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Title -->
-    <title>{{ config('app.name', 'TheUniSpace') }}</title>
+    <title>{{ config('app.name', 'TheUniSpace') }} – Track Goals, Stay Motivated, Achieve Together</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta name="description" content="Join TheUniSpace to track your goals, stay motivated with friends, and achieve your dreams together. Collaborate, share, and succeed!">
 
     <!-- SEO -->
-    <meta name="description" content="Achieve your goals with friends. Share goals, get motivated, and stay consistent.">
     <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- OG Tags -->
@@ -39,13 +40,14 @@
 
 <body class="font-sans text-gray-900 antialiased bg-white">
 
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(() => console.log("SW registered"))
-                .catch((err) => console.error("SW failed:", err));
+<script>
+         if('serviceWorker' in navigator)
+        {
+            navigator.serviceWorker.register('/service-worker.js');
+                .then(reg => console.log('Service Worker registered:', reg))
+                .catch(err => console.log('Service Worker registration failed:', err));
         }
-    </script>
+</script>
 
     <!-- PAGE CONTENT -->
     <div>

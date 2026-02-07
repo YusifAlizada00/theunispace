@@ -61,8 +61,8 @@
 
             {{-- Logo Area --}}
             <div class=" md:-ml-1 -mr-9 px-0 py-0 mb-4 -mt-4">
-                <a href="{{ route('dashboard.all.posts') }}" class="whitespace-nowrap flex items-center gap-2">
-                    <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}" alt="TheUniSpace Logo" loading="lazy" class=" w-30 h-16">
+                <a href="{{ route('dashboard.all.posts') }}" class="whitespace-nowrap flex items-center gap-2" aria-label="TheUniSpace Home">
+                    <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}" alt="TheUniSpace Logo" loading="eager" class=" w-30 h-16">
                 </a>
             </div>
 
@@ -70,7 +70,7 @@
             <div class="mb-4">
                 @auth
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                            <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}"
+                            <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}" aria-label="View Profile"
                                 class="{{ (request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') && (request()->routeIs('profile.edit') || request()->route('name') === Auth::user()->slug))
                         ? 'flex items-center gap-3 w-full rounded-2xl bg-gray-200 text-gray-900 p-3 shadow-lg shadow-slate-900/20 transform transition-all duration-200'
                         : 'group flex items-center gap-3 w-full rounded-2xl hover:bg-gray-300 hover:shadow-md border border-transparent hover:border-gray-100 p-3 transition-all duration-200'}}">
@@ -98,7 +98,7 @@
                 <div class="flex-1 space-y-2 relative overflow-y-auto scrollbar-hide px-1">
 
                     {{-- Feed --}}
-                    <a href="{{ route('dashboard.all.posts') }}"
+                    <a href="{{ route('dashboard.all.posts') }}" aria-label="Feed"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('dashboard.all.posts') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="relative flex-shrink-0 -ml-2">
@@ -116,7 +116,7 @@
                     </a>
 
                     {{-- Search --}}
-                    <a href="{{ route('search') }}"
+                    <a href="{{ route('search') }}" aria-label="Search"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('search', 'search.results') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
@@ -128,7 +128,7 @@
                     </a>
 
                     {{-- Study Groups --}}
-                    <a href="{{ route('study-groups') }}"
+                    <a href="{{ route('study-groups') }}" aria-label="Study Groups"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit', 'study-groups.create') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
@@ -140,7 +140,7 @@
                     </a>
 
                     {{-- Lost & Found --}}
-                    <a href="{{ route('lost-found') }}"
+                    <a href="{{ route('lost-found') }}" aria-label="Lost & Found"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('lost-found', 'contact-form', 'report-lost', 'lost-report.show') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
@@ -151,8 +151,8 @@
                         <span class="font-bold text-sm min-w-[90px]">Lost & Found</span>
                     </a>
 
-                    {{-- Parking --}}
-                    <a href="{{ route('map.show') }}"
+                    {{-- Parking --}} 
+                    <a href="{{ route('map.show') }}" aria-label="Free Parking"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('map.show') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
@@ -169,7 +169,7 @@
                     </div>
 
                     {{-- Help & Support --}}
-                    <a href="{{ route('help-support', parameters: ['name' => Auth::user()->slug]) }}"
+                    <a href="{{ route('help-support', parameters: ['name' => Auth::user()->slug]) }}" aria-label="Help & Support"
                         class="group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ease-in-out
                                   {{ request()->routeIs('help-support') ? 'bg-gray-200 text-gray-900 shadow-lg shadow-slate-900/10' : 'text-gray-500 hover:bg-gray-300 hover:text-gray-900' }}">
                         <div class="flex-shrink-0 -ml-2">
@@ -211,9 +211,9 @@
         <div class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-2 sm:px-4 py-3 flex items-center justify-between gap-4 sm:gap-8 transition-all duration-300 shadow-sm">
 
             <div class="shrink-0 flex items-center relative z-50 pr-4">
-                <a href="/" class="block">
+                <a href="/" class="block" aria-label="TheUniSpace Home">
                     <img src="{{ asset('webImages/theunispace-logo-tiny.png') }}" 
-                        alt="TheUniSpace Logo" loading="lazy"
+                        alt="TheUniSpace Logo" loading="eager"
                         class="h-10 w-auto object-contain -mt-3">
                 </a>
             </div>
@@ -370,7 +370,7 @@
             <div class="mb-8">
                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 pl-1">Applications</h2>
                 <div class="grid grid-cols-2 gap-4">
-                    <a href="{{ route('lost-found') }}"
+                    <a href="{{ route('lost-found') }}" aria-label="Lost & Found"
                         class="flex flex-col items-center justify-center p-5 rounded-[2rem] bg-white border border-gray-100 shadow-sm active:scale-95 transition-all duration-200 hover:border-orange-200 hover:shadow-orange-100/50">
                         <div class="p-3 bg-orange-50 rounded-2xl mb-3 text-orange-600"><img loading="lazy"
                                 src="{{ asset('icons/lost.png') }}" class="w-7 h-7" alt="Lost"></div>
@@ -379,9 +379,9 @@
                     {{-- Parking --}}
                     <livewire:get-number-of-notification>
                         {{-- Support --}}
-                        <a href="{{ route('help-support', ['name' => Auth::user()->slug]) }}"
+                        <a href="{{ route('help-support', ['name' => Auth::user()->slug]) }}" aria-label="Help & Support"
                             class="flex flex-col items-center justify-center p-5 rounded-[2rem] bg-white border border-gray-100 shadow-sm active:scale-95 transition-all duration-200 hover:border-purple-200 hover:shadow-purple-100/50">
-                            <div class="p-3 bg-purple-50 rounded-2xl mb-3 text-purple-600"><img loading="eager"
+                            <div class="p-3 bg-purple-50 rounded-2xl mb-3 text-purple-600"><img loading="lazy"
                                     src="{{ asset('icons/help.png') }}" class="w-7 h-7" alt="Help"></div>
                             <span class="font-bold text-slate-700 text-sm">Support</span>
                         </a>
@@ -394,7 +394,7 @@
             class="fixed bottom-5 left-4 right-4 flex justify-between items-center px-5 py-3 bg-white/90 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-3xl z-40">
             @auth
                 {{-- Home --}}
-                <a href="{{ route('dashboard.all.posts') }}"
+                <a href="{{ route('dashboard.all.posts') }}" aria-label="Feed"
                     class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('dashboard.all.posts') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -403,27 +403,27 @@
                     </svg>
                 </a>
 
-                <a href="{{ route('study-groups') }}"
+                <a href="{{ route('study-groups') }}" aria-label="Study Groups"
                     class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('study-groups', 'study-groups.show', 'study-groups.edit', 'study-groups.create') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
                     <img src="{{ asset('icons/group.png') }}" class="w-7 h-7" alt="Study Groups" loading="lazy">
                 </a>
 
                 {{-- CREATE BUTTON (Floating Up) --}}
                 <div class="-mt-12">
-                    <a href="{{ route('post.create') }}"
+                    <a href="{{ route('post.create') }}" aria-label="Create Post"
                         class="flex items-center justify-center w-16 h-16 bg-slate-900 rounded-full shadow-xl shadow-slate-900/40 border-[4px] border-white transition-transform duration-300 active:scale-90 hover:scale-110 hover:rotate-90">
                         <img src="{{ asset('icons/add.png') }}" class="w-7 h-7 invert brightness-0" alt="Add Icon" loading="lazy">
                     </a>
                 </div>
 
                 {{-- Parking --}}
-                <a href="{{ route('map.show') }}"
+                <a href="{{ route('map.show') }}" aria-label="Free Parking"
                     class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('map.show') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
                     <img src="{{ asset('icons/car-parking.png') }}" class="w-7 h-7" alt="Parking Icon" loading="lazy">
                 </a>
 
                 {{-- Profile --}}
-                <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}"
+                <a href="{{ route('posts.all', ['name' => Auth::user()->slug]) }}" aria-label="View Profile"
                     class="flex flex-col hover:bg-gray-100 p-2 rounded-xl items-center gap-1 transition-all duration-300 {{ request()->routeIs('posts.all', 'posts.saved', 'posts.liked', 'lost.items', 'study.groups.currently.in', 'profile.edit') ? 'scale-110 bg-gray-300' : 'opacity-60' }}">
                     <img class="rounded-full object-cover w-8 h-8 border border-gray-200" loading="lazy" alt="Photo"
                         src="{{ Auth::user()->profile_photo_url }}" />
