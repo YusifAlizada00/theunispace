@@ -29,6 +29,7 @@ use App\Models\ReportLost;
 use App\Http\Controllers\ParkingSpotsController;
 use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
 use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
+use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 
 Route::get('/parking-map', [MapController::class, 'index'])->name('map.show');
 
@@ -49,6 +50,7 @@ Route::get('/auth/facebook/callback', [FacebookController::class, 'callback'])
     Route::get('/terms-of-service', [TermsOfServiceController::class, 'show'])->name('terms.show');
 Route::get('/privacy-policy', [PrivacyPolicyController::class, 'show'])->name('policy.show');
 
+Route::get('/', [PostController::class, 'getAllPosts'])->name('dashboard.all.posts');
 
 // routes/web.php
 Route::middleware('auth')->delete('/delete-account', function () {
@@ -175,8 +177,6 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/', [PostController::class, 'getAllPosts'])->middleware(['auth'])->name('dashboard.all.posts');
-
     Route::get('/followings-posts', [PostController::class, 'getFollowingsPosts'])->middleware(['auth'])->name('dashboard.followings.posts');
 
     Route::get('/top-liked', [PostController::class, 'topLikedPosts'])->middleware(['auth'])->name('dashboard.top.liked');
@@ -196,3 +196,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('status', 'verification-link-sent');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+// For viewing your own profile
+Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile.show');
+

@@ -36,10 +36,17 @@
                          class="w-7 h-7">
 
                     {{-- Mobile Badge --}}
-                    @if(auth()->user()->unreadNotifications()->count() > 0)
-                        <span id="notification-count"
-                              class="absolute -top-1 -right-1 flex items-center justify-center min-w-[16px] h-[16px] px-0.5 text-[9px] font-bold text-white bg-red-600 border border-white rounded-full z-10">
-                            {{ auth()->user()->unreadNotifications()->count() }}
+                    @if(auth()->check())
+                        @if(auth()->user()->unreadNotifications()->count() > 0)
+                            <span id="notification-count"
+                                class="absolute -top-1 -right-1 flex items-center justify-center min-w-[16px] h-[16px] px-0.5 text-[9px] font-bold text-white bg-red-600 border border-white rounded-full z-10">
+                                {{ auth()->user()->unreadNotifications()->count() }}
+                            </span>
+                        @endif
+                    @else
+                        <!-- Empty span to reserve space and prevent layout shift -->
+                        <span class="absolute -top-1 -right-1 min-w-[16px] h-[16px] px-0.5 text-[9px] font-bold text-transparent bg-transparent border border-transparent rounded-full z-10">
+                            0
                         </span>
                     @endif
                 </div>

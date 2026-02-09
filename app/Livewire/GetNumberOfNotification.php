@@ -15,7 +15,13 @@ class GetNumberOfNotification extends Component
 
     public function refreshCount()
     {
+        if (auth()->check()) {
         $this->unreadNotificationCount = auth()->user()->unreadNotifications()->count();
+    } else {
+        // 2. If guest, set count to 0 (No crash!)
+        $this->unreadNotificationCount = 0;
+    }
+        
     }
     public function render()
     {

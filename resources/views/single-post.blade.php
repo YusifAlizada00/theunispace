@@ -4,8 +4,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <style>
-    /* === Custom Styling for "Beautiful" Look === */
-    
     /* Clean Swiper Pagination (Pills) */
     .swiper-pagination-bullet {
         background: #fff;
@@ -22,7 +20,7 @@
         border-radius: 99px;
     }
 
-    /* Glassmorphism Navigation Arrows */
+    /* Navigation Arrows */
     .swiper-button-next,
     .swiper-button-prev {
         width: 36px !important;
@@ -31,7 +29,7 @@
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         border-radius: 50%;
-        color: #0f172a !important; /* Slate 900 */
+        color: #0f172a !important;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         transition: all 0.2s ease;
     }
@@ -62,7 +60,7 @@
         <div class="relative w-full flex justify-center gap-8 px-4 sm:px-6 z-0">
             <div class="flex flex-col w-full max-w-2xl mx-auto">
                 
-                {{-- Main Card Container with "Beautiful" Styles --}}
+                {{-- Main Card Container --}}
                 <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden transition-all duration-500">
                     
                     {{-- 1. Header Section --}}
@@ -132,7 +130,7 @@
                                 @endif
 
                                 @if(Auth::user()->id !== $singlePost->user_id)
-                                        <livewire:report-content-livewire :post-id="$singlePost->id" />
+                                    <livewire:report-content-livewire :post-id="$singlePost->id" />
                                 @endif
                             </ul>
                         </div>
@@ -142,31 +140,42 @@
                     <div class="px-6 pb-4">
                         <p class="text-gray-800 text-sm leading-relaxed">
                             {!! \Illuminate\Support\Str::of($singlePost->description)
-                                // 1. Convert URLs to clickable links
                                 ->replaceMatches(
                                     '/(https?:\/\/[^\s]+)/',
                                     '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline hover:text-blue-800">$1</a>'
                                 )
-                                // 2. Convert newlines to <br> tags
                                 ->replace("\n", '<br>') !!}
                         </p>
                     </div>
 
                     {{-- 3. Media Section (Swiper) --}}
                     @if($singlePost->media->count() > 0)
-                        <div class="pb-2 px-2">
-                            {{-- Full width swiper inside the card --}}
-                            <div class="swiper mySwiper-{{ $singlePost->id }} rounded-2xl w-full aspect-[4/3] bg-slate-50">
+                        <div class="pb-2">
+                            {{-- FIX: Removed extra classes but kept w-full so it doesn't break --}}
+                            <div class="swiper mySwiper-{{ $singlePost->id }} rounded-2xl overflow-hidden bg-slate-50 w-full">
                                 <div class="swiper-wrapper">
                                     @foreach($singlePost->media as $media)
-                                        <div class="swiper-slide flex items-center justify-center bg-slate-100">
+                                        <div class="swiper-slide relative w-full aspect-[4/5] bg-gray-100 overflow-hidden">
+                                            
                                             @if($media->type === 'image')
-                                                <img src="{{ asset('storage/' . $media->path) }}" class="w-full h-full object-cover" alt="Image" loading="lazy">
+                                                <div class="absolute inset-0 z-0">
+                                                    <img src="{{ asset('storage/' . $media->path) }}" 
+                                                        class="h-full w-full object-cover blur-xl opacity-60 scale-110">
+                                                </div>
+
+                                                <div class="relative z-10 h-full w-full flex items-center justify-center p-2">
+                                                    <img src="{{ asset('storage/' . $media->path) }}"
+                                                        class="max-h-full max-w-full object-contain shadow-sm rounded-md"
+                                                        loading="lazy">
+                                                </div>
                                             @elseif($media->type === 'video')
-                                                <video controls class="w-full h-full object-contain">
-                                                    <source src="{{ asset('storage/' . $media->path) }}" type="video/mp4">
-                                                </video>
+                                                 <div class="relative z-10 h-full w-full flex items-center justify-center bg-black">
+                                                    <video controls class="max-h-full max-w-full object-contain">
+                                                        <source src="{{ asset('storage/' . $media->path) }}" type="video/mp4">
+                                                    </video>
+                                                </div>
                                             @endif
+
                                         </div>
                                     @endforeach
                                 </div>
@@ -181,11 +190,13 @@
                     @endif
 
 
-                    {{-- Engagement Bar (Visual Upgrade) --}}
+                    {{-- Engagement Bar --}}
                     <div class="px-5 py-4 border-t border-slate-50 flex items-center justify-between">
                         <div class="flex items-center gap-6">
-                            {{-- Like Button (Placeholder style) --}}
-                            <livewire:like-button :post="$singlePost">
+                            
+                            {{-- Like Button --}}
+                            {{-- FIX: Added the "/" to close the tag so icons appear --}}
+                            <livewire:like-button :post="$singlePost" />
 
                             {{-- Comment Button --}}
                              <a href="{{ route('single-post', $singlePost->slug) }}" class="flex items-center gap-2 text-slate-500 hover:text-indigo-500 transition-colors group">
@@ -225,10 +236,10 @@
     document.addEventListener('DOMContentLoaded', function () {
         const swipers = document.querySelectorAll('.swiper');
         swipers.forEach((el) => {
-            // Target specific unique class
             const uniqueClass = '.' + el.classList[1]; 
             new Swiper(uniqueClass, {
                 loop: false,
+                autoHeight: true, // Auto height adjusts container to image height
                 pagination: {
                     el: uniqueClass + ' .swiper-pagination',
                     clickable: true,
@@ -263,10 +274,9 @@
     }
 
     function deleteGoal() {
-        // Visual feedback only - form handles actual delete
         setTimeout(() => {
             Toastify({
-                text: "Goal deleted!",
+                text: "Post deleted!",
                 duration: 2000,
                 gravity: "top",
                 position: "center",
@@ -278,9 +288,4 @@
             }).showToast();
         }, 500); 
     }
-
-    setTimeout(() => {
-        const msg = document.getElementById('success-msg');
-        if (msg) msg.remove();
-    }, 3000);
 </script>

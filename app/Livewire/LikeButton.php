@@ -14,7 +14,15 @@ class LikeButton extends Component
     public function mount(Post $post)
     {
         $this->post = $post;
-        $this->isLiked = Auth::user()->likedPost()->where('post_id', $post->id)->exists();
+
+        if (Auth::check()) 
+        {
+            $this->isLiked = Auth::user()->likedPost()->where('post_id', $post->id)->exists();
+        } 
+        else 
+        {
+            $this->isLiked = false;
+        }
     }
 
     public function like()

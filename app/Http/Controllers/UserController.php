@@ -23,9 +23,10 @@ class UserController extends Controller
     public function edit($name)
     {
         $user = User::where('slug', $name)->firstOrFail();
-        if (auth()->id() !== $user->id) {
+        if (auth()->id() !== $user->id) 
+        {
             abort(403, 'Unauthorized action.');
-    }
+        }
         return view('profile.edit', compact('user'));
     }
 }

@@ -482,7 +482,13 @@
                             </div>
                         @endif
                     @else
-                        <p>Nope</p>
+                        <div class="flex flex-col items-center justify-center py-48 bg-white rounded-[3rem] border border-dashed border-gray-200 mb-24">
+                            <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                                <span class="text-3xl">📚</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Welcome to your Profile Page</h3>
+                             <p class="text-gray-500 mt-2">You can you one of the buttons above to navigate.</p>
+                        </div>
                     @endif
                 </div>
             </div>

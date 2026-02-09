@@ -18,9 +18,10 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Facades\Mail;
+use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 use FFMpeg\FFMpeg;
 use FFMpeg\Format\Video\X264;
-use SebastianBergmann\CodeCoverage\Report\Xml\Report;
+use FFMpeg\Coordinate\Dimension;
 
 
 
@@ -28,9 +29,14 @@ class PostController extends Controller
 {
     public function getAllPosts()
     {
-        //In here pluck returns the ids of posts which are not hidden
-        $visible_post_ids = ReportContent::where('is_hidden', false)->pluck('reported_post_id');
-        $posts = Post::latest()->whereNotIn('id', $visible_post_ids)->get();
+        $hiddenPostIds = ReportContent::where('is_hidden', true)->pluck('reported_post_id');
+        $query = Post::latest()->whereNotIn('id', $hiddenPostIds);
+
+        if (auth()->check()) {
+            $posts = $query->get();
+        } else {
+            $posts = $query->take(10)->get();
+        }
         $user = auth()->user();
         return view('dashboard', compact('posts', 'user'));
     }
@@ -38,7 +44,12 @@ class PostController extends Controller
     {
         //pluck - it gets the column in specified table
         $followingIds = auth()->user()->following()->pluck('users.id'); // <- specify table
-        $posts = Post::whereIn('user_id', $followingIds)->latest()->get();
+        $query = Post::whereIn('user_id', $followingIds);
+        if (auth()->check()) {
+            $posts = $query->get();
+        } else {
+            $posts = $query->take(10)->get();
+        }
         return view('dashboard', compact('posts'));
     }
 
@@ -72,19 +83,65 @@ class PostController extends Controller
                 if (str_contains($file->getMimeType(), 'image')) {
                     // Process image using read()
                     $img = $manager->read($file);
-                    if ($img->width() > 1200) {
-                        $img->resize(1200, null); // keep height null to maintain aspect ratio
-                    }
-
+                    $img->scaleDown(width: 1200);
                     $img->encode(new \Intervention\Image\Encoders\JpegEncoder(quality: 95));
                     $img->save(storage_path('app/public/' . $path));
                     $type = 'image';
                 } elseif (str_contains($file->getMimeType(), 'video')) {
-                    // Save video as-is
-                    $file->move(storage_path('app/public/posts'), $filename);
+
+                    // 1. SAVE RAW TEMP FILE (Explicitly to 'local' disk)
+                    // We force 'local' so we know EXACTLY where it is (storage/app/temp_videos)
+                    $tempRelativePath = $file->store('temp_videos', 'local');
+
+                    // 2. GET ABSOLUTE WINDOWS PATH
+                    // This asks Laravel for the real C:\Path\To\File. 
+                    // It automatically handles backslashes and drive letters correctly.
+                    $inputPath = Storage::disk('local')->path($tempRelativePath);
+
+                    // 3. DEFINE OUTPUT
+                    $finalFilename = 'posts/' . Str::random(40) . '.mp4';
+                    $outputPath = storage_path('app/public/' . $finalFilename);
+
+                    // Ensure output directory exists
+                    if (!file_exists(dirname($outputPath))) {
+                        mkdir(dirname($outputPath), 0755, true);
+                    }
+
+                    $defaultFfmpeg = str_starts_with(strtoupper(PHP_OS), 'WIN') ? 'C:/ffmpeg/bin/ffmpeg.exe' : '/usr/bin/ffmpeg';
+                    $defaultFfprobe = str_starts_with(strtoupper(PHP_OS), 'WIN') ? 'C:/ffmpeg/bin/ffprobe.exe' : '/usr/bin/ffprobe';
+
+                    // 2. INITIALIZE FFMPEG
+                    // We try to use the .env value first. If that's missing, we use the OS default we just calculated.
+                    $ffmpeg = FFMpeg::create([
+                        'ffmpeg.binaries' => env('FFMPEG_BINARIES', $defaultFfmpeg),
+                        'ffprobe.binaries' => env('FFPROBE_BINARIES', $defaultFfprobe),
+                        'timeout' => 3600,
+                        'ffmpeg.threads' => 12,
+                    ]);
+
+                    // 5. PROCESS VIDEO
+                    $video = $ffmpeg->open($inputPath);
+
+                    // Resize to 720p
+                    $video->filters()->resize(new Dimension(1280, 720))->synchronize();
+
+                    // Fix Sound (Force AAC)
+                    $format = new X264();
+                    $format->setAudioCodec('aac');
+
+                    // Save
+                    $video->save($format, $outputPath);
+
+                    // 6. CLEANUP
+                    // Delete the temp file from the 'local' disk
+                    Storage::disk('local')->delete($tempRelativePath);
+
+                    // Set DB Variables
+                    $path = $finalFilename;
                     $type = 'video';
+
                 } else {
-                    continue; // skip unsupported files
+                    continue;
                 }
 
                 // Save media to post_media table
@@ -165,18 +222,60 @@ class PostController extends Controller
                 if (str_contains($file->getMimeType(), 'image')) {
                     // Process image
                     $img = $manager->read($file);
-                    if ($img->width() > 1200) {
-                        $img->resize(1200, null); // keep height null to maintain aspect ratio
-                    }
+                    $img->scaleDown(width: 1200);
                     $img->encode(new \Intervention\Image\Encoders\JpegEncoder(quality: 95));
                     $img->save(storage_path('app/public/' . $path));
                     $type = 'image';
                 } elseif (str_contains($file->getMimeType(), 'video')) {
-                    // Save video
-                    $file->move(storage_path('app/public/posts'), $filename);
+                    
+                    // 1. SAVE RAW TEMP FILE (Explicitly to 'local' disk)
+                    $tempRelativePath = $file->store('temp_videos', 'local'); 
+
+                    // 2. GET ABSOLUTE PATH (Windows/Linux Safe)
+                    $inputPath = Storage::disk('local')->path($tempRelativePath);
+
+                    // 3. DEFINE OUTPUT
+                    $finalFilename = 'posts/' . Str::random(40) . '.mp4';
+                    $outputPath = storage_path('app/public/' . $finalFilename);
+
+                    // Ensure output directory exists
+                    if (!file_exists(dirname($outputPath))) {
+                        mkdir(dirname($outputPath), 0755, true);
+                    }
+
+                    // 4. DETECT OS & INITIALIZE FFMPEG
+                    $isWindows = str_starts_with(strtoupper(PHP_OS), 'WIN');
+                    $defaultFfmpeg  = $isWindows ? 'C:/ffmpeg/bin/ffmpeg.exe' : '/usr/bin/ffmpeg';
+                    $defaultFfprobe = $isWindows ? 'C:/ffmpeg/bin/ffprobe.exe' : '/usr/bin/ffprobe';
+
+                    $ffmpeg = FFMpeg::create([
+                        'ffmpeg.binaries'  => env('FFMPEG_BINARIES', $defaultFfmpeg),
+                        'ffprobe.binaries' => env('FFPROBE_BINARIES', $defaultFfprobe),
+                        'timeout'          => 3600,
+                        'ffmpeg.threads'   => 12,
+                    ]);
+
+                    // 5. PROCESS VIDEO
+                    $video = $ffmpeg->open($inputPath);
+
+                    // Resize to 720p
+                    $video->filters()->resize(new Dimension(1280, 720))->synchronize();
+                    
+                    $format = new X264();
+                    $format->setAudioCodec('aac'); 
+                    $format->setAudioKiloBitrate(128); 
+
+                    // Save
+                    $video->save($format, $outputPath);
+
+                    // 6. CLEANUP
+                    Storage::disk('local')->delete($tempRelativePath);
+
+                    $path = $finalFilename;
                     $type = 'video';
+
                 } else {
-                    continue;
+                    continue; // Skip unsupported files
                 }
 
                 // Save new media

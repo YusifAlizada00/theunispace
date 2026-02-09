@@ -58,6 +58,9 @@ class GoogleController extends Controller
             $user->markEmailAsVerified();
         }
 
+        Auth::login($user, true);
+
+
 
         return redirect('/');
     }

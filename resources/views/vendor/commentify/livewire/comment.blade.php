@@ -12,15 +12,15 @@
             <footer class="flex justify-between items-center mb-1">
                 <div class="flex items-center space-x-2 text-sm text-gray-900 dark:text-gray-800">
                     <p class="inline-flex items-center">
-                        <img class="mr-2 w-6 h-6 rounded-full" loading="lazy" src="{{ asset($comment->user->profile_photo_url) }}" alt="{{ $comment->user->name }}">
+                        <img class="mr-2 w-6 h-6 rounded-full" loading="lazy" src="{{ asset(Storage::url($comment->user->profile_photo_url)) }}" alt="{{ $comment->user->name }}">
                         {{ Str::ucfirst($comment->user->name) }}
                     </p>
 
                     <span class="flex items-center text-gray-500">&middot;</span>
 
                     <p class="text-gray-600 dark:text-gray-400 whitespace-nowrap">
-                        <time pubdate datetime="{{ $comment->getTimeAgoAttribute() }}" title="{{ $comment->presenter()->relativeCreatedAt() }}">
-                            {{ $comment->getTimeAgoAttribute() }}
+                        <time pubdate datetime="{{ $comment->created_at->diffForHumans(['short' => true]) }}" title="{{ $comment->presenter()->relativeCreatedAt() }}">
+                            {{ $comment->created_at->diffForHumans(['short' => true]) }}
                         </time>
                     </p>
                 </div>
