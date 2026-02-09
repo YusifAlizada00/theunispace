@@ -8,7 +8,7 @@
 
             @if(session('success'))
                 <div id="success-msg"
-                    class="mb-6 bg-green-100 border border-green-200 text-green-700 px-4 py-3 rounded-lg relative transition-opacity duration-500 ease-out"
+                    class="mb-6 bg-green-100 border border-green-200 text-green-700 px-4 py-3 rounded-lg relative transition-opacity duration-500 ease-out opacity-100" 
                     role="alert">
                     <strong class="font-bold">Success!</strong>
                     <span class="block sm:inline">{{ session('success') }}</span>
@@ -78,7 +78,7 @@
                         <div class="p-6 pb-4">
                             <div class="flex justify-between items-start mb-4">
                                 <a href="{{ route('study-groups.show', $studyGroup->slug) }}">
-                                    <span class="{{ $colorClass }} rounded-full py-1 px-3 font-semibold truncate">
+                                    <span class="{{ $colorClass }} rounded-full py-1 px-3 font-semibold truncate inline-block max-w-[170px] align-bottom">
                                         {{ $studyGroup->group_name }}
                                     </span>
                                 </a>
@@ -356,7 +356,14 @@
 
     setTimeout(() => {
         const msg = document.getElementById('success-msg');
-        if (msg) msg.classList.add('hide');
+        if (msg) {
+            msg.classList.remove('opacity-100');
+            msg.classList.add('opacity-0');
+
+            setTimeout(() => {
+                msg.remove();
+            }, 500); 
+        }
     }, 2000);
 
     function deleteReport() {
