@@ -20,7 +20,7 @@
              }">
 
             <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data"
-            @submit="submitting = true">
+            @submit="if(submitting) { $event.preventDefault(); return; } submitting = true">
                 @csrf
 
                     <div class="flex items-center justify-between mb-6 border-b pb-4">
