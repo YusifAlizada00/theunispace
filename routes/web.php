@@ -30,9 +30,12 @@ use App\Http\Controllers\ParkingSpotsController;
 use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
 use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
+use Spatie\Sitemap\SitemapGenerator;
 
-Route::get('/parking-map', [MapController::class, 'index'])->name('map.show');
-
+Route::get('/generate-sitemap', function () {
+    SitemapGenerator::create('https://theunispace.com')->writeToFile(public_path('sitemap.xml'));
+    return 'Sitemap generated!';
+});
 
 //Auth with Google and Facebook
 Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])
@@ -115,6 +118,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Following List
     Route::get('profile/@{name}/followings', [FollowController::class, 'getFollowings'])->name('followings.list');
 
+    //Parking Spots Routes
+    Route::get('/parking-map', [MapController::class, 'index'])->name('map.show');
+
+    
     //Lost and Found Routes
 
     Route::get('/lost-found', [ReportLostController::class, 'index'])->name('lost-found');
