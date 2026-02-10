@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'TheUniSpace') }} – Track Goals, Stay Motivated, Achieve Together</title>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <meta name="description"
         content="Join TheUniSpace to track your goals, stay motivated with friends, and achieve your dreams together. Collaborate, share, and succeed!">
 
@@ -16,14 +16,9 @@
     <meta property="og:title" content="{{ config('app.name') }}">
     <meta property="og:description"
         content="Achieve your goals with friends. Share goals, get motivated, and stay consistent.">
-    <meta property="og:image" content="/icons/icon-512.png">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
 
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#10b981">
-    <link rel="apple-touch-icon" href="/icons/apple-icon-180.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <link rel="apple-touch-startup-image" href="/icons/apple-splash-2048-2732.png"
         media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
