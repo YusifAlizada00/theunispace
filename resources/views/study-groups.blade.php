@@ -102,8 +102,8 @@
                                     @endif
 
                                     <div x-data="{ open: false }" class="relative mt-2">
-                                        <button @click="open = !open" class="text-gray-300 hover:text-gray-600 transition">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <button @click="open = !open" class="text-gray-300 hover:text-gray-600 transition" aria-label="Study group options menu">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
                                             </svg>

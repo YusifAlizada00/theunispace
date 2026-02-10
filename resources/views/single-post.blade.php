@@ -67,10 +67,10 @@
                     <div class="p-6 flex items-start justify-between">
                         <div class="flex items-center gap-4">
                             {{-- Avatar --}}
-                            <a href="{{ route('posts.all', ['name' => $singlePost->user->slug]) }}" class="relative block shrink-0">
+                            <a href="{{ route('posts.all', ['name' => $singlePost->user->slug]) }}" class="relative block shrink-0" aria-label="View {{ $singlePost->user->name }}'s profile">
                                 <img src="{{ $singlePost->user->profile_photo_url }}" 
-                                     alt="Profile" loading="eager"
-                                     class="w-12 h-12 rounded-full object-cover ring-4 ring-slate-50 transition-transform hover:scale-105">
+                                     alt="{{ $singlePost->user->name }}'s profile photo" loading="eager"
+                                     class="w-12 h-12 rounded-full object-cover ring-4 ring-slate-50 transition-transform hover:scale-105" aria-hidden="true">
                             </a>
 
                             {{-- User Info --}}
@@ -96,8 +96,8 @@
 
                         {{-- 3-Dot Menu --}}
                         <div x-data="{ open: false }" class="relative">
-                            <button @click="open = !open" class="p-2 -mr-2 text-slate-300 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
-                                <img src="{{ asset('icons/dots.png') }}" alt="Dots" class="w-6 h-6 opacity-60 hover:opacity-100" loading="lazy">
+                            <button @click="open = !open" class="p-2 -mr-2 text-slate-300 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors" aria-label="Post options menu">
+                                <img src="{{ asset('icons/dots.png') }}" alt="Dots" class="w-6 h-6 opacity-60 hover:opacity-100" loading="lazy" aria-hidden="true">
                             </button>
 
                             {{-- Dropdown --}}
@@ -109,21 +109,21 @@
 
                                 <input type="text" id="copyInput-{{ $singlePost->id }}" value="{{ url('dashboard/post/' . $singlePost->slug) }}" class="hidden">
 
-                                <button onclick="copyToClipboard({{ $singlePost->id }})" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                    <img src="{{ asset('icons/copy.png') }}" alt="Copy" class="w-5 h-5 opacity-70" loading="lazy">
+                                <button onclick="copyToClipboard({{ $singlePost->id }})" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" aria-label="Copy post link">
+                                    <img src="{{ asset('icons/copy.png') }}" alt="" class="w-5 h-5 opacity-70" loading="lazy" aria-hidden="true">
                                     <span>Copy Link</span>
                                 </button>
 
                                 @if (Auth::user()->id === $singlePost->user_id)
-                                    <a href="{{ route('post.edit', ['post' => $singlePost->slug]) }}" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-                                        <img src="{{ asset('icons/edit.png') }}" alt="Edit" class="w-5 h-5 opacity-70" loading="lazy">
+                                    <a href="{{ route('post.edit', ['post' => $singlePost->slug]) }}" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" aria-label="Edit this post">
+                                        <img src="{{ asset('icons/edit.png') }}" alt="" class="w-5 h-5 opacity-70" loading="lazy" aria-hidden="true">
                                         <span>Edit</span>
                                     </a>
 
                                     <form action="{{ route('post.destroy', ['post' => $singlePost->slug]) }}" method="POST">
                                         @csrf @method('DELETE')
-                                        <button type="submit" onclick="deleteGoal()" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-rose-500 hover:bg-rose-50 transition-colors">
-                                            <img src="{{ asset('icons/delete.png') }}" alt="Delete" class="w-5 h-5 opacity-70" loading="lazy">
+                                        <button type="submit" onclick="deleteGoal()" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-rose-500 hover:bg-rose-50 transition-colors" aria-label="Delete this post">
+                                            <img src="{{ asset('icons/delete.png') }}" alt="" class="w-5 h-5 opacity-70" loading="lazy" aria-hidden="true">
                                             <span>Delete</span>
                                         </button>
                                     </form>
@@ -159,12 +159,12 @@
                                             
                                             @if($media->type === 'image')
                                                 <div class="absolute inset-0 z-0">
-                                                    <img src="{{ asset('storage/' . $media->path) }}" 
+                                                    <img src="{{ asset('storage/' . $media->path) }}" alt="Image Blur" loading="lazy"
                                                         class="h-full w-full object-cover blur-xl opacity-60 scale-110">
                                                 </div>
 
                                                 <div class="relative z-10 h-full w-full flex items-center justify-center p-2">
-                                                    <img src="{{ asset('storage/' . $media->path) }}"
+                                                    <img src="{{ asset('storage/' . $media->path) }}" alt="Post Image"
                                                         class="max-h-full max-w-full object-contain shadow-sm rounded-md"
                                                         loading="lazy">
                                                 </div>

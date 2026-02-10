@@ -89,8 +89,8 @@
                                                     text-slate-500
                                                     hover:text-slate-800
                                                     hover:bg-slate-100
-                                                    transition-all duration-200">
-                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                    transition-all duration-200" aria-label="Item options menu">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                                                     <circle cx="10" cy="4" r="1.5"/>
                                                     <circle cx="10" cy="10" r="1.5"/>
                                                     <circle cx="10" cy="16" r="1.5"/>

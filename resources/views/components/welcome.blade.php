@@ -66,8 +66,8 @@
                     <div class="p-5 pb-3 flex items-start justify-between">
                         <div class="flex items-center gap-3">
                             {{-- Avatar --}}
-                            <a href="{{ route('posts.all', ['name' => $post->user->slug]) }}" class="relative">
-                                <img src="{{ $post->user->profile_photo_url }}" alt="Photo" loading="lazy" class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-50 border border-white shadow-sm">
+                            <a href="{{ route('posts.all', ['name' => $post->user->slug]) }}" class="relative" aria-label="View {{ $post->user->name }}'s profile">
+                                <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}'s profile photo" loading="lazy" class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-50 border border-white shadow-sm" aria-hidden="true">
                             </a>
                             
                             {{-- User Meta --}}
@@ -100,8 +100,8 @@
 
                         {{-- 3-Dot Menu --}}
                         <div x-data="{ open: false }" class="relative">
-                            <button @click="open = !open" class="text-slate-300 hover:text-slate-600 hover:bg-slate-50 rounded-full p-2 transition-all">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/></svg>
+                            <button @click="open = !open" class="text-slate-300 hover:text-slate-600 hover:bg-slate-50 rounded-full p-2 transition-all" aria-label="Post options menu">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/></svg>
                             </button>
                             
                             {{-- Dropdown --}}
@@ -113,16 +113,16 @@
 
                                 <input type="text" id="copyInput-{{ $post->id }}" value="{{ url('dashboard/post/' . $post->slug) }}" class="hidden">
 
-                                <button onclick="copyToClipboard({{ $post->id }})" class="flex items-center gap-3 w-full text-left px-4 py-3 hover:bg-slate-50 text-slate-600 text-sm font-medium transition-colors">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                                <button onclick="copyToClipboard({{ $post->id }})" class="flex items-center gap-3 w-full text-left px-4 py-3 hover:bg-slate-50 text-slate-600 text-sm font-medium transition-colors" aria-label="Copy post link">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
                                     Copy Link
                                 </button>
 
                                 {{-- CRASH FIX: Only show Edit/Delete if Logged In AND Owner --}}
                                 @auth
                                     @if (auth()->id() === $post->user_id)
-                                        <a href="{{ route('post.edit', ['post' => $post->slug]) }}" class="flex items-center gap-3 w-full text-left px-4 py-3 hover:bg-slate-50 text-slate-600 text-sm font-medium transition-colors">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                                        <a href="{{ route('post.edit', ['post' => $post->slug]) }}" class="flex items-center gap-3 w-full text-left px-4 py-3 hover:bg-slate-50 text-slate-600 text-sm font-medium transition-colors" aria-label="Edit this post">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                                             Edit Post
                                         </a>
 
@@ -170,12 +170,12 @@
                                             
                                             @if($media->type === 'image')
                                                 <div class="absolute inset-0 z-0">
-                                                    <img src="{{ asset('storage/' . $media->path) }}" 
+                                                    <img src="{{ asset('storage/' . $media->path) }}" alt="Image Blur" loading="lazy"
                                                         class="h-full w-full object-cover blur-xl opacity-60 scale-110">
                                                 </div>
 
                                                 <div class="relative z-10 h-full w-full flex items-center justify-center p-2">
-                                                    <img src="{{ asset('storage/' . $media->path) }}"
+                                                    <img src="{{ asset('storage/' . $media->path) }}" alt="Post Image"
                                                         class="max-h-full max-w-full object-contain shadow-sm rounded-md"
                                                         loading="lazy">
                                                 </div>

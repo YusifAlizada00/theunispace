@@ -43,9 +43,7 @@
     <script>
         // Register Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(reg => console.log('Service Worker registered')) // Removed reg object to reduce console noise
-                .catch(err => console.error('Service Worker failed:', err));
+            navigator.serviceWorker.register('/service-worker.js');
         }
 
         window.Laravel = { user: @json(auth()->user()) };

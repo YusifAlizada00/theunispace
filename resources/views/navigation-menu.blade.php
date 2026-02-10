@@ -316,7 +316,7 @@
             @endauth
 
             {{-- Mobile Menu Button --}}
-            <button @click="mobileMenuOpen = !mobileMenuOpen"
+            <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Menu Button" id="Menu Button" title="Menu Button"
                 class="shrink-0 p-2 rounded-2xl text-slate-600 hover:bg-slate-100 transition active:scale-95 focus:outline-none">
                 <div class="relative w-5 h-5">
                     <span class="absolute block w-5 h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out" :class="mobileMenuOpen ? 'top-2.5 rotate-45' : 'top-1'"></span>
