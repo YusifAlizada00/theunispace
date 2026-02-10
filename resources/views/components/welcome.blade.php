@@ -170,7 +170,7 @@
                                             
                                             @if($media->type === 'image')
                                                 <div class="absolute inset-0 z-0">
-                                                    <img src="{{ asset('storage/' . $media->path) }}" alt="Image Blur" loading="lazy"
+                                                    <img src="{{ asset('storage/' . $media->path) }}" alt="Image Blur" fetchpriority="high"
                                                         class="h-full w-full object-cover blur-xl opacity-60 scale-110">
                                                 </div>
 

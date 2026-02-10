@@ -1,4 +1,4 @@
-<div wire:poll.2s="loadLatest" class="fixed bottom-5 right-5 z-50 space-y-2">
+<div wire:poll.15s="loadLatest" class="fixed bottom-5 right-5 z-50 space-y-2">
     @foreach($notifications as $key => $notification)
         @php
             $type = class_basename($notification->type) === 'UserFollowedNotification' ? 'follow' : 'unfollow';

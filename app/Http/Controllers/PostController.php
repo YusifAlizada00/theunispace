@@ -77,7 +77,7 @@ class PostController extends Controller
 
             foreach ($request->file('media') as $file) {
                 $extension = $file->getClientOriginalExtension();
-                $filename = time() . '_' . uniqid() . '.' . $extension;
+                $filename = time() . '_' . uniqid() . '.' . 'webp'; // We will save everything as webp for consistency and optimization
                 $path = 'posts/' . $filename;
 
                 if (str_contains($file->getMimeType(), 'image')) {
@@ -216,7 +216,7 @@ class PostController extends Controller
 
             foreach ($request->file('media') as $file) {
                 $extension = $file->getClientOriginalExtension();
-                $filename = time() . '_' . uniqid() . '.' . $extension;
+                $filename = time() . '_' . uniqid() . '.' . 'webp'; // Save as webp for consistency and optimization
                 $path = 'posts/' . $filename;
 
                 if (str_contains($file->getMimeType(), 'image')) {
