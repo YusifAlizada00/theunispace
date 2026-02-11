@@ -11,11 +11,26 @@
     <meta name="description"
         content="Join TheUniSpace to improve, stay motivated with friends, and achieve your dreams together. Collaborate, share, and succeed!">
 
+
+    @php
+    $organizationJson = json_encode([
+        "@context" => "https://schema.org",
+        "@type" => "Organization",
+        "name" => config('app.name'),
+        "url" => url('/'),
+        "logo" => asset('favicon.ico')
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    @endphp
+
+    <script type="application/ld+json">
+    {!! $organizationJson !!}
+    </script>
+
+
     <link rel="canonical" href="{{ url()->current() }}">
 
     <meta property="og:title" content="{{ config('app.name') }}">
-    <meta property="og:description"
-        content="Achieve your goals with friends. Share goals, get motivated, and stay consistent.">
+    <meta property="og:description" content="Achieve your goals with friends. Share goals, get motivated, and stay consistent.">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
 
