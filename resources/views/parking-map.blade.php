@@ -30,6 +30,35 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
 
+        /* 2. The "Engaging Line" Animation & Style */
+    @keyframes flow {
+      from { stroke-dashoffset: 20; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    .engaging-line {
+      /* Makes the line look like a dashed tube */
+      stroke-dasharray: 12, 10; 
+      stroke-linecap: round; /* Round ends = friendly look */
+      
+      /* The Animation */
+      animation: flow 1s linear infinite;
+      
+      /* The "Gel" Shadow Effect */
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+      
+      transition: stroke-width 0.3s ease;
+    }
+
+    /* Hover Effect */
+    .engaging-line:hover {
+      stroke-width: 12px !important;
+      cursor: pointer;
+      z-index: 1000;
+      filter: drop-shadow(3px 6px 10px rgba(0,0,0,0.3));
+    }
+
+
     .leaflet-popup-content-wrapper {
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -116,7 +145,8 @@
         weight: 6,
         opacity: 0.8,
         lineCap: 'round',
-        lineJoin: 'round'
+        lineJoin: 'round',
+        className: 'engaging-line'
       }).addTo(map);
 
       line.setText(s.name, {
@@ -129,3 +159,11 @@
     });
   </script>
 </x-app-layout>
+
+
+
+
+
+
+
+

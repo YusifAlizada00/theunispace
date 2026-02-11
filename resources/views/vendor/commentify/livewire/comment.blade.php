@@ -12,8 +12,14 @@
             <footer class="flex justify-between items-center mb-1">
                 <div class="flex items-center space-x-2 text-sm text-gray-900 dark:text-gray-800">
                     <p class="inline-flex items-center">
-                        <img class="mr-2 w-6 h-6 rounded-full" loading="lazy" src="{{ asset(Storage::url($comment->user->profile_photo_url)) }}" alt="{{ $comment->user->name }}">
-                        {{ Str::ucfirst($comment->user->name) }}
+                        @if($comment->user)
+                            @if($comment->user->profile_photo_path)
+                                <img class="mr-2 w-6 h-6 rounded-full" loading="lazy" src="{{ '/storage/' . $comment->user->profile_photo_path }}" alt="{{ $comment->user->name }}'s profile photo">
+                            @else
+                                <img class="mr-2 w-6 h-6 rounded-full" loading="lazy" src="{{ asset('images/user.png') }}" alt="{{ $comment->user->name }}'s profile photo">
+                            @endif
+                        @endif
+                        {{ Str::ucfirst($comment->user->name ?? 'User') }}
                     </p>
 
                     <span class="flex items-center text-gray-500">&middot;</span>
