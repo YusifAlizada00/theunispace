@@ -37,6 +37,11 @@ Route::get('/generate-sitemap', function () {
     return 'Sitemap generated!';
 });
 
+Route::get('/menu', function()
+{
+    return view('menu');
+});
+
 //Auth with Google and Facebook
 Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])
     ->name('google.redirect');

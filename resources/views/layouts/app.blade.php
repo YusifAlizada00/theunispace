@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'TheUniSpace') }} – Improve with Groups, Stay Motivated, Achieve Together</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <meta name="description"
         content="Join TheUniSpace to improve, stay motivated with friends, and achieve your dreams together. Collaborate, share, and succeed!">
 

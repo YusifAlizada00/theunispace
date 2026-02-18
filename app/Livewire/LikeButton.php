@@ -27,6 +27,10 @@ class LikeButton extends Component
 
     public function like()
     {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+        
         try 
         {
             auth()->user()->likedPost()->attach($this->post->id);
@@ -41,6 +45,10 @@ class LikeButton extends Component
 
     public function unlike()
     {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
         auth()->user()->likedPost()->detach($this->post->id);
         $this->isLiked = false;
     }
