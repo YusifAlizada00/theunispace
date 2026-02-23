@@ -44,7 +44,7 @@
             <div>
                 <h1 class="text-2xl font-black text-slate-900 tracking-tight pl-2">The Feed</h1>
             </div>
-            
+
             {{-- LOGIC: If Guest, go to Login. If User, go to Create. --}}
             <a href="{{ auth()->check() ? route('post.create') : route('login') }}" title="New Post"
                class="group inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-2xl font-bold shadow-lg shadow-slate-900/10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-slate-900/20 active:scale-95">
@@ -54,7 +54,6 @@
                 <span class="text-sm tracking-wide">New Post</span>
             </a>
         </div>
-</div>
 
         {{-- 3. THE POST LOOP --}}
         @foreach ($posts as $post)
