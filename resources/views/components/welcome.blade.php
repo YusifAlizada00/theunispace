@@ -54,60 +54,6 @@
                 <span class="text-sm tracking-wide">New Post</span>
             </a>
         </div>
-        <div class="hidden md:flex items-center justify-between mb-16 sticky z-40 bg-emerald-950/90 backdrop-blur-2xl p-3 rounded-3xl border border-emerald-500/20 shadow-2xl shadow-emerald-900/30 overflow-hidden
-    {{ auth()->guest() ? 'top-20' : 'top-10' }}">
-    
-    <div class="absolute -right-20 -top-20 w-64 h-64 bg-emerald-500/10 blur-[60px] rounded-full pointer-events-none"></div>
-    <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-teal-400/10 blur-[60px] rounded-full pointer-events-none"></div>
-
-    <div class="relative flex items-center gap-5 pl-3 z-10 w-full">
-        <h1 class="text-2xl font-black text-white tracking-tight drop-shadow-sm">The Feed</h1>
-        
-        <div class="h-6 w-px bg-emerald-500/30"></div>
-        
-        <div class="hidden lg:flex flex-col justify-center">
-            <div class="flex items-center gap-1.5 text-emerald-300">
-                <svg class="w-4 h-4 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.25 10.5b-.596-1.516-1.722-2.642-3.238-3.238M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                <span class="text-sm font-semibold tracking-wide drop-shadow-sm">Ramadan</span>
-            </div>
-            <span class="text-[10px] text-emerald-100/60 tracking-wider uppercase mt-0.5">A month of reflection & community</span>
-        </div>
-    </div>
-    
-    <div class="relative z-10 flex items-center gap-4 bg-emerald-900/40 px-5 py-2 rounded-2xl border border-emerald-400/10 shadow-inner shrink-0"
-         x-data="{
-             timeUntil: { h: '00', m: '00', s: '00' },
-             targetTime: '18:30:00', // Set your Iftar time here
-             init() {
-                 setInterval(() => {
-                     const now = new Date();
-                     const target = new Date();
-                     const [hours, minutes, seconds] = this.targetTime.split(':');
-                     target.setHours(hours, minutes, seconds, 0);
-                     if (now > target) target.setDate(target.getDate() + 1);
-                     const diff = target - now;
-                     this.timeUntil.h = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
-                     this.timeUntil.m = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, '0');
-                     this.timeUntil.s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
-                 }, 1000);
-             }
-         }">
-         
-        <div class="flex flex-col items-end justify-center mr-1">
-            <span class="text-[9px] uppercase tracking-[0.2em] text-emerald-200/70">Next</span>
-            <span class="text-xs font-bold tracking-widest text-emerald-100 drop-shadow-sm">IFTAR</span>
-        </div>
-        
-        <div class="flex items-center gap-1 font-mono text-base font-light text-emerald-300">
-            <div class="bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/20 shadow-sm" x-text="timeUntil.h"></div>
-            <span class="text-emerald-500/50 animate-pulse">:</span>
-            <div class="bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/20 shadow-sm" x-text="timeUntil.m"></div>
-            <span class="text-emerald-500/50 animate-pulse">:</span>
-            <div class="bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/20 shadow-sm" x-text="timeUntil.s"></div>
-        </div>
-    </div>
 </div>
 
         {{-- 3. THE POST LOOP --}}

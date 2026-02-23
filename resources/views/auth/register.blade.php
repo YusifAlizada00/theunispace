@@ -87,7 +87,7 @@
                     {{-- Major --}}
                     <x-input
                         class="block w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:border-[#94CC95] focus:ring-[#94CC95]"
-                        type="text" name="major" :value="old('major')" required
+                        type="text" name="major" :value="old('major')"
                         placeholder="Major (e.g. Computer Science)" />
 
                     {{-- Password --}}
