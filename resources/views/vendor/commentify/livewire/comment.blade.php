@@ -14,9 +14,15 @@
                     <p class="inline-flex items-center">
                         @if($comment->user)
                             @if($comment->user->profile_photo_path)
-                                <img class="mr-2 w-6 h-6 rounded-full" loading="lazy" src="{{ '/storage/' . $comment->user->profile_photo_path }}" alt="{{ $comment->user->name }}'s profile photo">
+                                <img class="mr-2 w-6 h-6 rounded-full"
+                                    src="{{ asset('storage/'.$comment->user->profile_photo_path) }}">
                             @else
-                                <img class="mr-2 w-6 h-6 rounded-full" loading="lazy" src="{{ asset('images/user.png') }}" alt="{{ $comment->user->name }}'s profile photo">
+                                <div class="mr-2 w-6 h-6 rounded-full bg-[#EBF4FF] flex items-center justify-center text-[10px] font-bold text-[#7F9CF5]">
+                                    {{ collect(explode(' ', $comment->user->name))
+                                        ->map(fn($word) => strtoupper(substr($word, 0, 1)))
+                                        ->take(2)
+                                        ->implode('') }}
+                                </div>
                             @endif
                         @endif
                         {{ Str::ucfirst($comment->user->name ?? 'User') }}
