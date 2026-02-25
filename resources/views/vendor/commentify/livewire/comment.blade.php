@@ -11,13 +11,13 @@
         <article class="p-6 mb-1 text-base bg-white rounded-lg dark:bg-white">
             <footer class="flex justify-between items-center mb-1">
                 <div class="flex items-center space-x-2 text-sm text-gray-900 dark:text-gray-800">
-                    <p class="inline-flex items-center">
+                    <p class="inline-flex items-center gap-2">
                         @if($comment->user)
                             @if($comment->user->profile_photo_path)
-                                <img class="mr-2 w-6 h-6 rounded-full"
+                                <img class="w-6 h-6 rounded-full"
                                     src="{{ asset('storage/'.$comment->user->profile_photo_path) }}">
                             @else
-                                <div class="mr-2 w-6 h-6 rounded-full bg-[#EBF4FF] flex items-center justify-center text-[10px] font-bold text-[#7F9CF5]">
+                                <div class="w-6 h-6 rounded-full bg-[#EBF4FF] flex items-center justify-center text-[10px] font-bold text-[#7F9CF5]">
                                     {{ collect(explode(' ', $comment->user->name))
                                         ->map(fn($word) => strtoupper(substr($word, 0, 1)))
                                         ->take(2)
@@ -25,7 +25,10 @@
                                 </div>
                             @endif
                         @endif
-                        {{ Str::ucfirst($comment->user->name ?? 'User') }}
+
+                        <span>
+                            {{ Str::ucfirst($comment->user->name ?? 'User') }}
+                        </span>
                     </p>
 
                     <span class="flex items-center text-gray-500">&middot;</span>
