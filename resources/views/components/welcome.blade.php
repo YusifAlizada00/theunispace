@@ -60,7 +60,7 @@
             <div class="mb-8 w-full group relative">
                 
                 {{-- Card Container --}}
-                <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-0 overflow-hidden hover:shadow-md transition-shadow duration-300">
+                <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-0 overflow-visible hover:shadow-md transition-shadow duration-300">
 
                     {{-- Card Header --}}
                     <div class="p-5 pb-3 flex items-start justify-between">

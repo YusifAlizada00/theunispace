@@ -61,7 +61,7 @@
             <div class="flex flex-col w-full max-w-2xl mx-auto">
                 
                 {{-- Main Card Container --}}
-                <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden transition-all duration-500">
+                <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 overflow-visible transition-all duration-500">
                     
                     {{-- 1. Header Section --}}
                     <div class="p-6 flex items-start justify-between">
