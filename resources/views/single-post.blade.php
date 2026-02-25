@@ -114,7 +114,7 @@
                                     <span>Copy Link</span>
                                 </button>
 
-                                @if (Auth::user()->id === $singlePost->user_id)
+                                @if (Auth::user()->id === $singlePost->user_id || Auth::user()->is_admin)
                                     <a href="{{ route('post.edit', ['post' => $singlePost->slug]) }}" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" aria-label="Edit this post">
                                         <img src="{{ asset('icons/edit.png') }}" alt="" class="w-5 h-5 opacity-70" loading="lazy" aria-hidden="true">
                                         <span>Edit</span>

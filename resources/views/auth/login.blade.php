@@ -56,11 +56,11 @@
                         Continue with Google
                     </a>
 
-                    <a href="{{ route('facebook.redirect') }}"
+                    <!-- <a href="{{ route('facebook.redirect') }}"
                        class="w-full flex items-center justify-center gap-3 py-3 rounded-xl font-semibold text-white bg-[#1877F2] hover:bg-[#166FE5] transition">
                         <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" class="w-5 h-5" alt="Facebook Icon" loading="lazy">
                         Continue with Facebook
-                    </a>
+                    </a> -->
                 </div>
 
                 {{-- Divider --}}
@@ -79,6 +79,9 @@
                             class="block w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:border-[#94CC95] focus:ring-[#94CC95]"
                             type="email" name="email" :value="old('email')" required
                             placeholder="Email address" />
+                        @error('email')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -86,6 +89,9 @@
                             class="block w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:border-[#94CC95] focus:ring-[#94CC95]"
                             type="password" name="password" required
                             placeholder="Password" />
+                        @error('password')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="flex items-center justify-between text-sm">
@@ -101,6 +107,9 @@
                             </a>
                         @endif
                     </div>
+                    @error('remember')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
 
                     <button type="submit"
                         class="w-full py-3.5 bg-[#94CC95] hover:bg-[#82b983] text-white font-bold rounded-xl transition active:scale-95">

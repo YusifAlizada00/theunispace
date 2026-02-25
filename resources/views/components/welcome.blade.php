@@ -120,7 +120,7 @@
 
                                 {{-- CRASH FIX: Only show Edit/Delete if Logged In AND Owner --}}
                                 @auth
-                                    @if (auth()->id() === $post->user_id)
+                                    @if (auth()->id() === $post->user_id || auth()->user()->is_admin)
                                         <a href="{{ route('post.edit', ['post' => $post->slug]) }}" class="flex items-center gap-3 w-full text-left px-4 py-3 hover:bg-slate-50 text-slate-600 text-sm font-medium transition-colors" aria-label="Edit this post">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                                             Edit Post

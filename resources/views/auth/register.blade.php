@@ -54,11 +54,11 @@
                         Sign up with Google
                     </a>
 
-                    <a href="{{ route('facebook.redirect') }}"
+                    <!-- <a href="{{ route('facebook.redirect') }}"
                        class="w-full flex items-center justify-center gap-3 py-3 rounded-xl font-semibold text-white bg-[#1877F2] hover:bg-[#166FE5] transition">
                         <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" class="w-5 h-5" alt="Facebook Icon" loading="lazy">
                         Sign up with Facebook
-                    </a>
+                    </a> -->
                 </div>
 
                 {{-- Divider --}}
@@ -77,30 +77,45 @@
                         class="block w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:border-[#94CC95] focus:ring-[#94CC95]"
                         type="text" name="name" :value="old('name')" required
                         placeholder="Full name" />
+                    @error('name')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
 
                     {{-- Email --}}
                     <x-input
                         class="block w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:border-[#94CC95] focus:ring-[#94CC95]"
                         type="email" name="email" :value="old('email')" required
                         placeholder="name@student.sl.on.ca" />
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
 
                     {{-- Major --}}
                     <x-input
                         class="block w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:border-[#94CC95] focus:ring-[#94CC95]"
                         type="text" name="major" :value="old('major')"
                         placeholder="Major (e.g. Computer Science)" />
+                    @error('major')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
 
                     {{-- Password --}}
                     <x-input
                         class="block w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:border-[#94CC95] focus:ring-[#94CC95]"
                         type="password" name="password" required
                         placeholder="Password" />
+                    @error('password')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
 
                     {{-- Confirm Password --}}
                     <x-input
                         class="block w-full px-4 py-3 rounded-xl bg-gray-50 border-gray-200 focus:border-[#94CC95] focus:ring-[#94CC95]"
                         type="password" name="password_confirmation" required
                         placeholder="Confirm password" />
+                    @error('password_confirmation')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
 
                     {{-- Terms --}}
                     @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
@@ -115,6 +130,9 @@
                                    class="font-bold text-[#006BE6] underline">Privacy Policy</a>
                             </span>
                         </label>
+                        @error('terms')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     @endif
 
                     {{-- Submit --}}
