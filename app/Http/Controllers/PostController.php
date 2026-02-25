@@ -293,12 +293,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if (auth()->id() !== $post->user_id) {
+        if (auth()->id() !== $post->user_id && !auth()->user()->is_admin) {
             abort(403);
         }
         $post->delete();
 
-        return redirect()->route('dashboard.all.posts')->with('delete', 'Goal has been deleted!');
+        return redirect()->route('dashboard.all.posts')->with('delete', 'Post has been deleted!');
     }
     public function allPosts($name)
     {
