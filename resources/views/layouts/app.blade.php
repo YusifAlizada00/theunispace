@@ -28,6 +28,7 @@
 
 
     <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="manifest" href="/manifest.json">
 
     <meta property="og:title" content="{{ config('app.name') }}">
     <meta property="og:description" content="Achieve your goals with friends. Share goals, get motivated, and stay consistent.">
@@ -49,7 +50,15 @@
 </head>
 
 <body class="font-sans antialiased" x-data="{ showReportModal: false }">
-
+<button id="installBtn"
+    class="hidden absolute z-50 
+           top-16 md:top-40 right-6 md:top-16 md:right-6
+           bg-emerald-600 hover:bg-emerald-700
+           text-white px-6 py-3 rounded-2xl
+           shadow-2xl transition-all duration-300
+           hover:scale-105 active:scale-95">
+    Install App
+</button>
     <div id="awayNotice" class="hidden fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-3 rounded-xl z-50 shadow-lg items-center gap-3">
         <span>You were away for a while</span>
         <button onclick="resumeSession()"
@@ -152,6 +161,40 @@
 
         setInterval(checkSession, 1000 * 60 * 15);
 
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();         // Prevent the automatic mini prompt
+            deferredPrompt = e;         // Save the event so we can trigger it later
+            document.getElementById('installBtn').classList.remove('hidden'); // Show your button
+        });
+
+        window.addEventListener('appinstalled', () => {
+            // Hide the button when app is installed
+            document.getElementById('installBtn').classList.add('hidden');
+            deferredPrompt = null;
+        });
+
+        const installBtn = document.getElementById('installBtn');
+
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) return;   // Make sure the browser supports it
+            deferredPrompt.prompt();        // Show the native install prompt
+
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('Install choice:', outcome);
+
+            // Hide the button after user makes a choice
+            installBtn.classList.add('hidden');
+
+            // Clear the saved prompt
+            deferredPrompt = null;
+        });
+
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            // App is already installed
+            installBtn.classList.add('hidden');
+        }
     </script>
 
     @auth
@@ -175,7 +218,6 @@
             {{ $slot }}
         </main>
     </div>
-
     @stack('modals')
     @livewireScripts
 </body>

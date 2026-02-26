@@ -37,7 +37,7 @@
                 <span class="font-medium text-sm">{{ session('success') }}</span>
             </div>
         @endif
-
+ 
         {{-- Feed Header / New Post Button --}}
         <div class="hidden md:flex items-center justify-between mb-16 sticky z-40 bg-gray-50/80 backdrop-blur-xl p-3 rounded-3xl border border-white/40 shadow-sm
         {{ auth()->guest() ? 'top-20' : 'top-10' }}">
