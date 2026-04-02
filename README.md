@@ -38,13 +38,16 @@ Interactive Leaflet Map: A custom-integrated map highlighting free parking zones
 
 Cost Saving: Real-time visual markers for street parking to help students avoid expensive campus permits.
 <br>
+<br>
 🔍 Lost & Found
 Item Recovery: A dedicated board for reporting lost or found items, helping students reunite with their belongings quickly.
+<br>
 <br>
 👤 Profile & Personalization
 Verified Profiles: Student profiles with major/department tags (e.g., Computer Science).
 
 Personal Feed: Track your own posts, liked content, and joined groups in one place.
+<br>
 <br>
 🛠️ Tech Stack
 Frontend: [Laravel + Livewire]
