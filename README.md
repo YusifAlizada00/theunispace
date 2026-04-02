@@ -8,9 +8,9 @@
 <img width="1919" height="909" alt="Screenshot 2026-04-02 135845" src="https://github.com/user-attachments/assets/716ce14c-36df-48ee-8970-d5cee14aa5f8" />
 <img width="1919" height="900" alt="Screenshot 2026-04-02 135855" src="https://github.com/user-attachments/assets/9fe5a0a1-5971-49d2-b323-9d8b0149aab8" />
 
-<p align="center">
+<a href="https://theunispace.com" align="center">
   <img width="128" height="128" alt="theunispace-logo-tiny" src="https://github.com/user-attachments/assets/2f2c58a4-707d-4bb0-9c30-80cc363d4cb5" />
-</p>
+</a>
 <h1>
     <a href="https://theunispace.com">TheUniSpace</a>
 </h1>
