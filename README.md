@@ -7,7 +7,8 @@ Real-time Updates: A centralized social feed where students can ask questions, s
 
 Engagement: Support for likes, comments, and post sharing to keep the community connected.
 
-📚 Study Groups
+📚 Study Groups![Uploading Screenshot 2026-04-02 135855.png…]()
+
 Collaborative Learning: Create or join study groups for specific courses (e.g., Math 101).
 
 Session Management: Details including host name, date, time, and specific campus locations (like Jeffery Hall).
