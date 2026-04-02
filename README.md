@@ -10,7 +10,9 @@
 
 
 
-<h1>TheUniSpace</h1>
+<h1>
+    <a href="https://theunispace.com">TheUniSpace</a>
+</h1>
 <br>
 <h3>TheUniSpace is a dedicated community platform designed specifically for university students to streamline campus life. From finding study partners to locating free parking and recovering lost items, TheUniSpace serves as a central hub for student collaboration and utility.</h3>
 
@@ -45,7 +47,7 @@ Verified Profiles: Student profiles with major/department tags (e.g., Computer S
 Personal Feed: Track your own posts, liked content, and joined groups in one place.
 <br>
 🛠️ Tech Stack
-Frontend: [Insert Framework, e.g., React/Livewire]
+Frontend: [Laravel + Livewire]
 
 Styling: Tailwind CSS
 
@@ -53,4 +55,4 @@ Mapping: Leaflet.js / OpenStreetMap
 
 Authentication: Social Auth (Google Integration) & Email/Password
 
-Icons: Lucide React / FontAwesome
+Icons: FontAwesome
